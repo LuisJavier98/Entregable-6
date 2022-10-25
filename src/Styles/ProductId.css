@@ -1,0 +1,81 @@
+.card_bodyId {
+  margin: 0 5%;
+  font-size: 12px;
+}
+
+.text_direction {
+  margin: 30px 0;
+}
+
+.card_imageDescription {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.imagesId {
+  display: block;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.imageId {
+  display: block;
+  margin: 0 auto;
+  width: 75%;
+  max-height: 400px;
+
+}
+
+.descriptionId {
+  box-sizing: border-box;
+  padding: 20px;
+  max-width: 400px;
+}
+
+.text_priceQuantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+.buttonId {
+  margin: 10px 0;
+  width: 100%;
+  height: 30px;
+}
+
+.button_back {
+  background-color: transparent;
+  border: none;
+  display: block;
+  animation: back 1s ease infinite;
+}
+
+.link_back {
+  text-decoration: none;
+  color: #f85555;
+  transform: scale(2);
+}
+.card_productsId{
+display: grid;
+grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+gap: 1%;
+}
+
+.card_productId{
+  width: 100%;
+
+}
+
+@keyframes back {
+  0%{
+transform: scale(2);
+  }
+  100%{
+transform: scale(2.2);
+  }
+}
