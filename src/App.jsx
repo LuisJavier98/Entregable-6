@@ -20,8 +20,8 @@ function App() {
       {
         "firstName": "Max",
         "lastName": "Rangel",
-        "email": "Lu@gmail.com",
-        "password": "pass1234",
+        "email": "Luisja@gmail.com",
+        "password": "pas1234",
         "phone": "1234567891",
         "role": "admin"
       })

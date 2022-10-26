@@ -5,14 +5,15 @@ import { useNavigate } from 'react-router-dom'
 import getConfig from '../Utils/getConfig'
 
 
-const CardProduct = ({ product, setnumeroCar }) => {
+const CardProduct = ({ product, setnumber }) => {
   const putbyId = e => {
+    setnumber(e.target.id)
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
     axios.post(URL,
       {
         "id": e.target.id,
         "quantity": 1
-      }, getConfig() )
+      }, getConfig())
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }

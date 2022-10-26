@@ -40,21 +40,24 @@ const Login = (activeCar) => {
 
   if (isLogeed) {
     return (
-      <div>
+      <div className='card_Login'>
         <header className='card_header'>
         <h1 style={{
             color: '#f85555'
-          }}><Link to='/'>e-commerce</Link></h1>
+          }}><Link style={{color:'#f85555' ,textDecoration:'none'}} to='/'>e-commerce</Link></h1>
           <div className='buttons_routes'>
             <button className='button_user' ><NavLink to='/login'><AiOutlineUser /></NavLink  ></button>
             <button className='button_purchase'><NavLink to='/purchases'><FiArchive /></NavLink></button>
             <button className='button_car'><AiOutlineShoppingCart /></button>
           </div>
         </header>
+        <form action="">
         <h2>
           User Logged
         </h2>
         <button onClick={handleLogout}>Logout</button>
+        </form>
+        <Footer className='card_footerLogin' />
       </div>
     )
   }

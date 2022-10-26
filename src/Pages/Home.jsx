@@ -15,12 +15,12 @@ import { AiFillLinkedin } from 'react-icons/ai'
 import { AiFillYoutube } from 'react-icons/ai'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom'
 import Cart from './Cart'
 
 
 const Home = () => {
-
+  const navigate =useNavigate()
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
   const [categories, setcategories] = useState()
@@ -32,9 +32,7 @@ const Home = () => {
   const [carActive, setcarActive] = useState(true)
   const [categoryActive, setcategoryActive] = useState(false)
   const [productName, setproductName] = useState()
-  const [numeroCar, setnumeroCar] = useState()
-
-
+  const [number, setnumber] = useState()
 
   const { register, formState: { errors }, watch, handleSubmit } = useForm()
   const onSubmit = data => {
@@ -54,12 +52,14 @@ const Home = () => {
   }
 
   const activateCar = () => {
-    setcarActive(!carActive)
+    if (localStorage.getItem('token')) { setcarActive(!carActive) }
+    else{navigate('/Login')}
   }
 
   const allCategories = () => {
     setcategories()
   }
+
 
 
   useEffect(() => {
@@ -100,7 +100,10 @@ const Home = () => {
         </div>
       </header>
       <div className='card_bodyHome'>
-        <Cart carActive={carActive} />
+        {localStorage.getItem('token') ?
+          <Cart carActive={carActive} number={number} /> :
+          ""
+        }
         <div className='card_body'>
           <div className={filter ? 'card_filter' : 'card_filter_active'}>
             <div className='card_fixed'>
@@ -141,19 +144,19 @@ const Home = () => {
                 products?.map(product => {
                   if (minValue && maxValue) {
                     if (+product.price > minValue && +product.price < maxValue)
-                      return <CardProduct key={product.id} product={product} setnumeroCar={setnumeroCar} />
+                      return <CardProduct key={product.id} product={product} setnumber={setnumber} />
                   }
                   else if (category) {
                     if (category == product.category.id)
-                      return <CardProduct key={product.id} product={product} setnumeroCar={setnumeroCar} />
+                      return <CardProduct key={product.id} product={product} setnumber={setnumber}  />
                   }
                   else {
                     if (productName) {
                       if (product.title.toLowerCase().includes(productName))
-                        return <CardProduct key={product.name} product={product} setnumeroCar={setnumeroCar} />
+                        return <CardProduct key={product.name} product={product} setnumber={setnumber} />
                     }
                     else
-                      return <CardProduct key={product.name} product={product} setnumeroCar={setnumeroCar} />
+                      return <CardProduct key={product.name} product={product} setnumber={setnumber}  />
                   }
                 })
               }
