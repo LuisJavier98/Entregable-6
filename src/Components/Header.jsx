@@ -9,10 +9,12 @@ const Header = ({activateCar}) => {
         <header className='card_header'>
             <h1 style={{
                 color: '#f85555'
-            }}>e-commerce</h1>
+            }}><Link style={{
+                color: '#f85555',textDecoration:'none'
+            }} to='/'>e-commerce</Link></h1>
             <div className='buttons_routes'>
-                <button className='button_user' ><NavLink to='/login'><AiOutlineUser /></NavLink  ></button>
-                <button className='button_purchase'><Link to='/purchases'><FiArchive /></Link></button>
+                <button className='button_user' ><NavLink style={{color:'rgb(163, 147, 147)'}} to='/login'><AiOutlineUser /></NavLink  ></button>
+                <button className='button_purchase'><Link style={{color:'rgb(163, 147, 147)'}} to='/purchases'><FiArchive /></Link></button>
                 <button onClick={activateCar} className='button_car'><AiOutlineShoppingCart /></button>
             </div>
         </header>

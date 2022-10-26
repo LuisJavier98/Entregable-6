@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { FiLogIn } from 'react-icons/fi'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import CreateAccount from './Components/CreateAccount'
 import Cart from './Pages/Cart'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
@@ -14,27 +15,13 @@ import Purchases from './Pages/Purchases'
 
 function App() {
 
-  useEffect(() => {
-    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/users'
-    axios.post(URL,
-      {
-        "firstName": "Max",
-        "lastName": "Rangel",
-        "email": "Luisja@gmail.com",
-        "password": "pas1234",
-        "phone": "1234567891",
-        "role": "admin"
-      })
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
-  }, [])
-
   return (
     <div className="App">
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/products/:id' element={<ProductId />} />
+          <Route path='/createAccount' element={<CreateAccount/>} />
         <Route element={<ProtectedRoutes />}>
           <Route path='/cart' element={<Cart />} />
           <Route path='/purchases' element={<Purchases />} />

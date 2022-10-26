@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { AiOutlineUser } from 'react-icons/ai'
-import { FiArchive } from 'react-icons/fi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { getAllProducts } from '../store/slices/products.slice'
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import { AiOutlineCopyrightCircle } from 'react-icons/ai'
-import { FiInstagram } from 'react-icons/fi'
-import { AiFillLinkedin } from 'react-icons/ai'
-import { AiFillYoutube } from 'react-icons/ai'
 import '../Styles/ProductId.css'
 import CardProduct from '../Components/CardProduct'
+import Header from '../Components/Header'
+import Footer from '../Components/Footer'
 
 const ProductId = () => {
   const products = useSelector(state => state.products)
@@ -31,39 +27,10 @@ const ProductId = () => {
     dispatch(getAllProducts())
   }, [])
 
-  let numbers = []
-  numbers.push(Math.floor(Math.random() * (products?.length)))
-
-  for (let i = 0; i <= 99; i++) {
-    if (numbers.length < 4) {
-      const b = Math.floor(Math.random() * (products?.length))
-      if (numbers.includes(b)) { }
-      else { numbers.push(b) }
-    }
-    else break
-
-  }
-
-  const [a] = numbers
-  const [, b] = numbers
-  const [, , c] = numbers
-  const [, , , d] = numbers
-
-  console.log(numbers)
-
 
   return (
     <div className='card_productId'>
-      <header className='card_header'>
-        <h1 style={{
-          color: '#f85555'
-        }}>e-commerce</h1>
-        <div className='buttons_routes'>
-          <button className='button_header' ><AiOutlineUser /></button>
-          <button className='button_header'><Link to='/purchases'><FiArchive /></Link></button>
-          <button className='button_header'><AiOutlineShoppingCart /></button>
-        </div>
-      </header>
+      <Header />
       {
         products ?
           <div className='card_bodyId'>
@@ -90,7 +57,7 @@ const ProductId = () => {
                     </div>
                   </div>
                   <div className='quantityId'>
-                    <p style={{ color: 'rgb(163, 147, 147)' }}>Quantity <br /><button onClick={handleSub}>-</button>  <em style={{ width: '5px', color:'black' }}>{quantity}</em>  <button onClick={handlePlus}>+</button></p>
+                    <p style={{ color: 'rgb(163, 147, 147)' }}>Quantity <br /><button onClick={handleSub}>-</button>  <em style={{ width: '5px', color: 'black' }}>{quantity}</em>  <button onClick={handlePlus}>+</button></p>
                   </div>
                 </div>
                 <button className='buttonId'>Add to cart <AiOutlineShoppingCart /></button>
@@ -98,25 +65,14 @@ const ProductId = () => {
             </div>
             <p style={{ color: '#f85555', margin: '30px 0px', fontWeight: '800' }}>Discover similar items</p>
             <div className='card_productsId'>
-              <CardProduct product={products[a]} />
-              <CardProduct product={products[b]} />
-              <CardProduct product={products[c]} />
-              <CardProduct product={products[d]} />
+              <CardProduct product={products[4]} />
+              <CardProduct product={products[6]} />
+              <CardProduct product={products[7]} />
+              <CardProduct product={products[10]} />
             </div>
           </div> : ""
       }
-      <footer style={{ marginTop: '80px' }}>
-        <div style={{ color: 'white', paddingTop: '10px ' }}>
-          <strong>
-            <AiOutlineCopyrightCircle />Academlo 2022
-          </strong>
-        </div>
-        <div className='buttons_footer'>
-          <a href='https://www.linkedin.com/school/academlo/?originalSubdomain=mx' className='button_footer' target={'_blank'}><FiInstagram /></a>
-          <a target={'_blank'} href='https://www.instagram.com/academlohq/?hl=es-la' className='button_footer'><AiFillLinkedin /></a>
-          <a target={'_blank'} href='https://www.youtube.com/c/academlo' className='button_footer'><AiFillYoutube /></a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

@@ -68,6 +68,10 @@ gap: 1%;
 
 .card_productId{
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 35px;
 
 }
 

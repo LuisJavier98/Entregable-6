@@ -43,8 +43,8 @@ const Purchases = () => {
                 {
                   product.cart.products.map(p =>
                     <div className='card_PropertyPurchases' style={{margin:'8px 0px'}}>
-                      <div>{p.title}</div>
-                      <div style={{ border: '1px solid gray', width: '5%', textAlign: 'center' }}>{p.productsInCart.quantity}</div>
+                      <div style={{maxWidth:'30%'}}>{p.title}</div>
+                      <div style={{ border: '1px solid gray', width: '5%', textAlign: 'center',height:'15px' }}>{p.productsInCart.quantity}</div>
                       <div>${p.price}</div>
 
                     </div>

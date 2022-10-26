@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import '../Styles/Login.css'
 import Footer from '../Components/Footer'
+import Header from '../Components/Header'
 
 const Login = (activeCar) => {
   const { handleSubmit, register, reset } = useForm()
@@ -41,21 +42,12 @@ const Login = (activeCar) => {
   if (isLogeed) {
     return (
       <div className='card_Login'>
-        <header className='card_header'>
-        <h1 style={{
-            color: '#f85555'
-          }}><Link style={{color:'#f85555' ,textDecoration:'none'}} to='/'>e-commerce</Link></h1>
-          <div className='buttons_routes'>
-            <button className='button_user' ><NavLink to='/login'><AiOutlineUser /></NavLink  ></button>
-            <button className='button_purchase'><NavLink to='/purchases'><FiArchive /></NavLink></button>
-            <button className='button_car'><AiOutlineShoppingCart /></button>
-          </div>
-        </header>
-        <form action="">
-        <h2>
-          User Logged
-        </h2>
-        <button onClick={handleLogout}>Logout</button>
+        <Header />
+        <form style={{ margin: '0px auto' }} action="">
+          <h2>
+            User Logged
+          </h2>
+          <button style={{ display: 'block', margin: '0px auto' }} onClick={handleLogout}>Logout</button>
         </form>
         <Footer className='card_footerLogin' />
       </div>
@@ -64,20 +56,12 @@ const Login = (activeCar) => {
   else
     return (
       <div className='card_Login'>
-        <header className='card_header'>
-          <h1 style={{
-            color: '#f85555'
-          }}><Link style={{color:'#f85555' ,textDecoration:'none'}} to='/'>e-commerce</Link></h1>
-          <div className='buttons_routes'>
-            <button className='button_user' ><NavLink to='/login'><AiOutlineUser /></NavLink  ></button>
-            <button className='button_purchase'><NavLink to='/purchases'><FiArchive /></NavLink></button>
-            <button className='button_car'><AiOutlineShoppingCart /></button>
-          </div>
-        </header>
+        <Header />
         <form className='card_formLogin' action="" onSubmit={handleSubmit(submit)}>
           <label htmlFor="email">Email</label> < input re className='card_inputLogin' type="text" name="" required id="email" autoComplete='off' {...register('email')} />
-          <label htmlFor="password">Password</label><input required  ype="password" className='card_paswordLogin' id='password' autoComplete='off'  {...register('password')} />
+          <label htmlFor="password">Password</label><input required ype="password" className='card_paswordLogin' id='password' autoComplete='off'  {...register('password')} />
           <button className='card_buttonLogin' >Login</button>
+          <Link to='/createAccount' style={{color:'gray'}} >Do you still have an account?</Link>
         </form>
         <Footer className='card_footerLogin' />
       </div>

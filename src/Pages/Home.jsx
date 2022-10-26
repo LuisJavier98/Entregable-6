@@ -55,11 +55,6 @@ const Home = () => {
     else { navigate('/Login') }
   }
 
-  const allCategories = () => {
-    setcategories()
-  }
-
-
 
   useEffect(() => {
     dispatch(getAllProducts())
@@ -118,7 +113,6 @@ const Home = () => {
                   <button onClick={activateCategory} className={categoryActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
                 </div>
                 <ul className={categoryActive ? 'card_categories' : 'card_categories_inactive'}>
-                  <li onClick={allCategories} >All categories</li>
                   {categories?.map(category => <li className='card_category' onClick={dataCategory} id={category.id} key={category.id}>{category.name}</li>)}
                 </ul>
               </div>
