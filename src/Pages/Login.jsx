@@ -58,8 +58,8 @@ const Login = (activeCar) => {
       <div className='card_Login'>
         <Header />
         <form className='card_formLogin' action="" onSubmit={handleSubmit(submit)}>
-          <label htmlFor="email">Email</label> < input re className='card_inputLogin' type="text" name="" required id="email" autoComplete='off' {...register('email')} />
-          <label htmlFor="password">Password</label><input required ype="password" className='card_paswordLogin' id='password' autoComplete='off'  {...register('password')} />
+          <label htmlFor="email">Email</label> < input re className='card_inputLogin' type="text" name="" required id="email" autoComplete='off' placeholder='Write your email' {...register('email')} />
+          <label htmlFor="password">Password</label><input required type="password" className='card_paswordLogin' id='password' autoComplete='off' placeholder='Write your password' {...register('password')} />
           <button className='card_buttonLogin' >Login</button>
           <Link to='/createAccount' style={{color:'gray'}} >Do you still have an account?</Link>
         </form>

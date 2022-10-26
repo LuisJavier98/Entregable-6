@@ -28,12 +28,12 @@ const navigate = useNavigate()
     <div className='card_Login'>
       <Header />
       <form className='card_formLogin' action="" onSubmit={handleCreate} >
-        <label htmlFor="First_Name">First Name</label> < input re className='card_inputLogin' type="text" name="" required id="First_Name" autoComplete='off' />
-        <label htmlFor="Last_Name">Last Name</label><input required ype="text" className='card_paswordLogin' id='Last_Name' autoComplete='off' />
-        <label htmlFor="email">Email</label><input required ype="text" className='card_paswordLogin' id='Email' autoComplete='off' />
-        <label htmlFor="password">Password</label><input required ype="password" className='card_paswordLogin' id='password' autoComplete='off' />
-        <label htmlFor="phone">Phone(10 numbers)</label><input required ype="text" className='card_paswordLogin' id='phone' autoComplete='off' />
-        <label htmlFor="role">Role</label><input required ype="text" className='card_paswordLogin' id='role' autoComplete='off' />
+        <label htmlFor="First_Name">First Name</label> < input re className='card_inputLogin' type="text" name="" required id="First_Name" autoComplete='off' placeholder='write your first name' />
+        <label htmlFor="Last_Name">Last Name</label><input required ype="text" className='card_paswordLogin' id='Last_Name' autoComplete='off'placeholder='Write your last name' />
+        <label htmlFor="email">Email</label><input required type="text" className='card_paswordLogin' id='Email' autoComplete='off' placeholder='Write your email'/>
+        <label htmlFor="password">Password</label><input required type="password" className='card_paswordLogin' id='password' autoComplete='off' placeholder='Write your password' />
+        <label htmlFor="phone">Phone</label><input required type="text" className='card_paswordLogin' id='phone' autoComplete='off' placeholder='Write your phone(10 numbers)'  minLength='10' maxLength='10' />
+        <label htmlFor="role">Role</label><input required type="text" className='card_paswordLogin' id='role' autoComplete='off' value='admin' />
 
         <button className='card_buttonLogin' >Create an account </button>
       </form>
