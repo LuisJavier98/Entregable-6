@@ -1,8 +1,15 @@
 import React from 'react'
 
-const Cart = () => {
+const Cart = ({carActive}) => {
     return (
-        <div>Cart</div>
+
+        <div className={carActive ? 'card_car_inactive' : 'card_car'}>
+            Shoping cart
+            <div>
+
+            </div>
+        </div>
+
     )
 }
 

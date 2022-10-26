@@ -60,7 +60,7 @@ const ProductId = () => {
         }}>e-commerce</h1>
         <div className='buttons_routes'>
           <button className='button_header' ><AiOutlineUser /></button>
-          <button className='button_header'><FiArchive /></button>
+          <button className='button_header'><Link to='/purchases'><FiArchive /></Link></button>
           <button className='button_header'><AiOutlineShoppingCart /></button>
         </div>
       </header>

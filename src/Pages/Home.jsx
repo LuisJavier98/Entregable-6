@@ -15,6 +15,8 @@ import { AiFillLinkedin } from 'react-icons/ai'
 import { AiFillYoutube } from 'react-icons/ai'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import { Link, NavLink } from 'react-router-dom'
+import Cart from './Cart'
 
 
 const Home = () => {
@@ -27,8 +29,12 @@ const Home = () => {
   const [category, setcategory] = useState()
   const [filter, setfilter] = useState(true)
   const [priceActive, setpriceActive] = useState(false)
+  const [carActive, setcarActive] = useState(true)
   const [categoryActive, setcategoryActive] = useState(false)
   const [productName, setproductName] = useState()
+  const [numeroCar, setnumeroCar] = useState()
+
+
 
   const { register, formState: { errors }, watch, handleSubmit } = useForm()
   const onSubmit = data => {
@@ -46,9 +52,15 @@ const Home = () => {
   const activateCategory = () => {
     setcategoryActive(!categoryActive)
   }
+
+  const activateCar = () => {
+    setcarActive(!carActive)
+  }
+
   const allCategories = () => {
     setcategories()
   }
+
 
   useEffect(() => {
     dispatch(getAllProducts())
@@ -82,69 +94,73 @@ const Home = () => {
           color: '#f85555'
         }}>e-commerce</h1>
         <div className='buttons_routes'>
-          <button className='button_header' ><AiOutlineUser /></button>
-          <button className='button_header'><FiArchive /></button>
-          <button className='button_header'><AiOutlineShoppingCart /></button>
+          <button className='button_user' ><NavLink to='/login'><AiOutlineUser /></NavLink  ></button>
+          <button className='button_purchase'><Link to='/purchases'><FiArchive /></Link></button>
+          <button onClick={activateCar} className='button_car'><AiOutlineShoppingCart /></button>
         </div>
       </header>
-      <div className='card_body'>
-        <div className={filter ? 'card_filter' : 'card_filter_active'}>
-          <div className='card_fixed'>
-            <div className='text_close'>
-              <button className='button_close' onClick={activate}> <GrFormClose /></button>
-            </div>
-            <div className='text_filter'><strong>Filters</strong></div>
-            <div className='card_separate'>
-              <p><strong>Price</strong></p>
-              <button onClick={activatePrice} className={priceActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
-            </div>
-            <form action="" onSubmit={dataPrice} className={priceActive ? 'form_price' : 'form_price_inactive'}>
-              <label htmlFor="">From</label>
-              <input type="number" min='0' placeholder='Please, write a price' required />
-              <label htmlFor="">To</label>
-              <input type="number" min='0' placeholder='Please, write a price' required />
-              <button className='button_filter'>Filter price</button>
-            </form>
-            <div className='card_category'>
-              <div className='card_separate'>
-                <p><strong>Category</strong></p>
-                <button onClick={activateCategory} className={categoryActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
+      <div className='card_bodyHome'>
+        <Cart carActive={carActive} />
+        <div className='card_body'>
+          <div className={filter ? 'card_filter' : 'card_filter_active'}>
+            <div className='card_fixed'>
+              <div className='text_close'>
+                <button className='button_close' onClick={activate}> <GrFormClose /></button>
               </div>
-              <ul className={categoryActive ? 'card_categories' : 'card_categories_inactive'}>
-                <li onClick={allCategories} >All categories</li>
-                {categories?.map(category => <li className='card_category' onClick={dataCategory} id={category.id} key={category.id}>{category.name}</li>)}
-              </ul>
+              <div className='text_filter'><strong>Filters</strong></div>
+              <div className='card_separate'>
+                <p><strong>Price</strong></p>
+                <button onClick={activatePrice} className={priceActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
+              </div>
+              <form action="" onSubmit={dataPrice} className={priceActive ? 'form_price' : 'form_price_inactive'}>
+                <label htmlFor="">From</label>
+                <input type="number" min='0' placeholder='Please, write a price' required />
+                <label htmlFor="">To</label>
+                <input type="number" min='0' placeholder='Please, write a price' required />
+                <button className='button_filter'>Filter price</button>
+              </form>
+              <div className='card_category'>
+                <div className='card_separate'>
+                  <p><strong>Category</strong></p>
+                  <button onClick={activateCategory} className={categoryActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
+                </div>
+                <ul className={categoryActive ? 'card_categories' : 'card_categories_inactive'}>
+                  <li onClick={allCategories} >All categories</li>
+                  {categories?.map(category => <li className='card_category' onClick={dataCategory} id={category.id} key={category.id}>{category.name}</li>)}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className='Searcher_products'>
+            <form action="" className='card_form' onSubmit={handleSubmit(onSubmit)}>
+              <input type="text" placeholder='What are you looking for?' autoComplete='off' {...register('product', { required: true })} />
+            </form>
+            <button className={filter ? 'filter_button_active' : 'filter_button'} onClick={activate}><AiFillFilter />Filters</button>
+            <div className='card_products'>
+              {
+                products?.map(product => {
+                  if (minValue && maxValue) {
+                    if (+product.price > minValue && +product.price < maxValue)
+                      return <CardProduct key={product.id} product={product} setnumeroCar={setnumeroCar} />
+                  }
+                  else if (category) {
+                    if (category == product.category.id)
+                      return <CardProduct key={product.id} product={product} setnumeroCar={setnumeroCar} />
+                  }
+                  else {
+                    if (productName) {
+                      if (product.title.toLowerCase().includes(productName))
+                        return <CardProduct key={product.name} product={product} setnumeroCar={setnumeroCar} />
+                    }
+                    else
+                      return <CardProduct key={product.name} product={product} setnumeroCar={setnumeroCar} />
+                  }
+                })
+              }
             </div>
           </div>
         </div>
-        <div className='Searcher_products'>
-          <form action="" className='card_form' onSubmit={handleSubmit(onSubmit)}>
-            <input type="text" placeholder='What are you looking for?' autoComplete='off' {...register('product', { required: true })} />
-          </form>
-          <button className={filter ? 'filter_button_active' : 'filter_button'} onClick={activate}><AiFillFilter />Filters</button>
-          <div className='card_products'>
-            {
-              products?.map(product => {
-                if (minValue && maxValue) {
-                  if (+product.price > minValue && +product.price < maxValue)
-                    return <CardProduct key={product.id} product={product} />
-                }
-                else if (category) {
-                  if (category == product.category.id)
-                    return <CardProduct key={product.id} product={product} />
-                }
-                else {
-                  if (productName) {
-                    if (product.title.toLowerCase().includes(productName))
-                      return <CardProduct key={product.name} product={product} />
-                  }
-                  else
-                    return <CardProduct key={product.name} product={product} />
-                }
-              })
-            }
-          </div>
-        </div>
+
       </div>
       <footer>
         <div style={{ color: 'white', paddingTop: '10px ' }}>

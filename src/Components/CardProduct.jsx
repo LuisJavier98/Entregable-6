@@ -1,10 +1,21 @@
+import axios from 'axios'
 import React from 'react'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 
 import { useNavigate } from 'react-router-dom'
+import getConfig from '../Utils/getConfig'
 
 
-const CardProduct = ({ product }) => {
+const CardProduct = ({ product, setnumeroCar }) => {
+  const putbyId = e => {
+    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
+    axios.post(URL,
+      {
+        "id": e.target.id,
+        "quantity": 1
+      }, getConfig() )
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+  }
   const navigate = useNavigate()
   const information = e => {
     window.scrollTo(
@@ -29,7 +40,7 @@ const CardProduct = ({ product }) => {
             ${product.price}
           </h5>
         </p>
-        <button className='button_buy'><AiOutlineShoppingCart /></button>
+        <button onClick={putbyId} className='button_buy' id={product.id} >Add to cart</button>
       </div>
     </article>
   )
