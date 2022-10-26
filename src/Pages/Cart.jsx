@@ -15,6 +15,23 @@ const Cart = ({ carActive, number }) => {
       .then(res => setp(res))
       .catch(err => console.log(err))
   }
+  const addtoPurchase = () => {
+    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/purchases'
+    axios.post(URL, {
+      "street": "Green St. 1456",
+      "colony": "Southwest",
+      "zipCode": 12345,
+      "city": "USA",
+      "references": "Some references"
+    }, getConfig())
+      .then(res => {
+        console.log(res.data)
+        setproductBougth()
+        setPlusPrices([])
+
+      })
+      .catch(err => console.log(err))
+  }
 
   useEffect(() => {
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
@@ -52,7 +69,7 @@ const Cart = ({ carActive, number }) => {
 
         }
       </div>
-      <button className='button_Cart'>Checkout</button>
+      <button onClick={addtoPurchase} className='button_Cart'>Checkout</button>
     </div>
   )
 }

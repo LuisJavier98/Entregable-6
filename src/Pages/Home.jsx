@@ -6,9 +6,6 @@ import '../Styles/Home.css'
 import { IoIosArrowDown } from 'react-icons/io'
 import { AiFillFilter } from 'react-icons/ai'
 import { GrFormClose } from 'react-icons/gr'
-import { AiOutlineUser } from 'react-icons/ai'
-import { FiArchive } from 'react-icons/fi'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { AiOutlineCopyrightCircle } from 'react-icons/ai'
 import { FiInstagram } from 'react-icons/fi'
 import { AiFillLinkedin } from 'react-icons/ai'
@@ -17,10 +14,12 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom'
 import Cart from './Cart'
+import Header from '../Components/Header'
+import Footer from '../Components/Footer'
 
 
 const Home = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate()
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
   const [categories, setcategories] = useState()
@@ -53,7 +52,7 @@ const Home = () => {
 
   const activateCar = () => {
     if (localStorage.getItem('token')) { setcarActive(!carActive) }
-    else{navigate('/Login')}
+    else { navigate('/Login') }
   }
 
   const allCategories = () => {
@@ -89,16 +88,7 @@ const Home = () => {
 
   return (
     <div className='card_home'>
-      <header className='card_header'>
-        <h1 style={{
-          color: '#f85555'
-        }}>e-commerce</h1>
-        <div className='buttons_routes'>
-          <button className='button_user' ><NavLink to='/login'><AiOutlineUser /></NavLink  ></button>
-          <button className='button_purchase'><Link to='/purchases'><FiArchive /></Link></button>
-          <button onClick={activateCar} className='button_car'><AiOutlineShoppingCart /></button>
-        </div>
-      </header>
+      <Header activateCar={activateCar} />
       <div className='card_bodyHome'>
         {localStorage.getItem('token') ?
           <Cart carActive={carActive} number={number} /> :
@@ -148,7 +138,7 @@ const Home = () => {
                   }
                   else if (category) {
                     if (category == product.category.id)
-                      return <CardProduct key={product.id} product={product} setnumber={setnumber}  />
+                      return <CardProduct key={product.id} product={product} setnumber={setnumber} />
                   }
                   else {
                     if (productName) {
@@ -156,27 +146,15 @@ const Home = () => {
                         return <CardProduct key={product.name} product={product} setnumber={setnumber} />
                     }
                     else
-                      return <CardProduct key={product.name} product={product} setnumber={setnumber}  />
+                      return <CardProduct key={product.name} product={product} setnumber={setnumber} />
                   }
                 })
               }
             </div>
           </div>
         </div>
-
       </div>
-      <footer>
-        <div style={{ color: 'white', paddingTop: '10px ' }}>
-          <strong>
-            <AiOutlineCopyrightCircle />Academlo 2022
-          </strong>
-        </div>
-        <div className='buttons_footer'>
-          <a href='https://www.linkedin.com/school/academlo/?originalSubdomain=mx' className='button_footer' target={'_blank'}><FiInstagram /></a>
-          <a target={'_blank'} href='https://www.instagram.com/academlohq/?hl=es-la' className='button_footer'><AiFillLinkedin /></a>
-          <a target={'_blank'} href='https://www.youtube.com/c/academlo' className='button_footer'><AiFillYoutube /></a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

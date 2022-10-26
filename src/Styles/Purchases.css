@@ -1,0 +1,28 @@
+.card_Purchases{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card_PropertiesPurchases{
+    display: flex;
+    margin-bottom: 50px;
+    flex-direction: column;
+
+}
+.card_productsPurchased{
+margin: 15px 0px;
+}
+.card_caracteristicsPurchases{
+    display: flex;
+    flex-direction:column ;
+    gap: 15px   ;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 20px 0px;
+    padding: 0px 15px;
+}
+.card_PropertyPurchases {
+    display: flex;
+    justify-content: space-between;
+}
