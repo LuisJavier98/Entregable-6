@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { getAllProducts } from '../store/slices/products.slice'
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
@@ -9,12 +9,15 @@ import '../Styles/ProductId.css'
 import CardProduct from '../Components/CardProduct'
 import Header from '../Components/Header'
 import Footer from '../Components/Footer'
+import axios from 'axios'
+import getConfig from '../Utils/getConfig'
 
 const ProductId = () => {
   const products = useSelector(state => state.products)
   const [quantity, setquantity] = useState(1)
   const { id } = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handlePlus = () => {
     setquantity(quantity + 1)
@@ -26,6 +29,21 @@ const ProductId = () => {
   useEffect(() => {
     dispatch(getAllProducts())
   }, [])
+
+  const addtoCart = () => {
+    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
+    axios.post(URL,
+      {
+        "id": id,
+        "quantity": quantity
+      }, getConfig())
+      .then(res=>{
+        console.log(res.data)
+        navigate('/')
+        window.alert('Products added to the cart , please check your shopping cart')
+      })
+      .catch(err=>console.log(err))
+  }
 
 
   return (
@@ -60,7 +78,7 @@ const ProductId = () => {
                     <p style={{ color: 'rgb(163, 147, 147)' }}>Quantity <br /><button onClick={handleSub}>-</button>  <em style={{ width: '5px', color: 'black' }}>{quantity}</em>  <button onClick={handlePlus}>+</button></p>
                   </div>
                 </div>
-                <button className='buttonId'>Add to cart <AiOutlineShoppingCart /></button>
+                <button onClick={addtoCart} className='buttonId'>Add to cart <AiOutlineShoppingCart /></button>
               </div>
             </div>
             <p style={{ color: '#f85555', margin: '30px 0px', fontWeight: '800' }}>Discover similar items</p>

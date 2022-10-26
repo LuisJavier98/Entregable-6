@@ -15,14 +15,17 @@ const Login = (activeCar) => {
   const { handleSubmit, register, reset } = useForm()
   const navigate = useNavigate()
   const [isLogeed, setisLogeed] = useState(false)
-
   const submit = data => {
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/users/login'
     axios.post(URL, {
       "email": data.email,
       "password": data.password
     })
-      .then(res => localStorage.setItem('token', res.data.data.token))
+      .then(res => {
+        navigate('/')
+        localStorage.setItem('token', res.data.data.token)
+        window.alert('Your account has created successfully')
+      })
       .catch(err => console.log(err))
     setisLogeed(true)
 
@@ -61,7 +64,7 @@ const Login = (activeCar) => {
           <label htmlFor="email">Email</label> < input re className='card_inputLogin' type="text" name="" required id="email" autoComplete='off' placeholder='Write your email' {...register('email')} />
           <label htmlFor="password">Password</label><input required type="password" className='card_paswordLogin' id='password' autoComplete='off' placeholder='Write your password' {...register('password')} />
           <button className='card_buttonLogin' >Login</button>
-          <Link to='/createAccount' style={{color:'gray'}} >Do you still have an account?</Link>
+          <Link to='/createAccount' style={{ color: 'gray' }} >Do you still have an account?</Link>
         </form>
         <Footer className='card_footerLogin' />
       </div>
