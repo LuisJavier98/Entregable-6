@@ -8,6 +8,8 @@ const Cart = ({ carActive, number }) => {
   const [productsBought, setproductBougth] = useState()
   const [plusPrices, setPlusPrices] = useState([])
   const [p, setp] = useState()
+  const [a, seta] = useState()
+  console.log(number)
 
   const deleteProduct = e => {
     URL = `https://ecommerce-api-react.herokuapp.com/api/v1/cart/${e.target.id}`
@@ -40,6 +42,7 @@ const Cart = ({ carActive, number }) => {
         setproductBougth(res.data.data.cart.products)
         const Plus = res.data.data.cart.products.map(p => +p.price)
         setPlusPrices(Plus)
+        seta(number)
       })
       .catch(err => console.log(err))
   }, [p, number])

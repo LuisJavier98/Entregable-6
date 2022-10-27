@@ -20,6 +20,7 @@ const navigate = useNavigate()
       .then(res => {
         console.log(res.data)
         navigate('/Login')
+        window.alert('Your account has created successfully')
         })
       .catch(err => console.log(err))
   }
