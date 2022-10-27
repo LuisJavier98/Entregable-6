@@ -30,21 +30,27 @@ const Cart = ({ carActive, number }) => {
         console.log(res.data)
         setproductBougth()
         setPlusPrices([])
-
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        window.alert("Cart is empty")
+      })
   }
 
   useEffect(() => {
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
     axios.get(URL, getConfig())
       .then(res => {
+        console.log(res.data)
         setproductBougth(res.data.data.cart.products)
-        const Plus = res.data.data.cart.products.map(p => +p.price*p.productsInCart.quantity)
+        const Plus = res.data.data.cart.products.map(p => +p.price * p.productsInCart.quantity)
         setPlusPrices(Plus)
         seta(number)
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        seta(number)
+      })
   }, [p, number])
 
   return (
@@ -60,7 +66,7 @@ const Cart = ({ carActive, number }) => {
             </div>
             <div style={{ textAlign: 'start', fontWeight: '600' }}>{product.title}</div>
             <div className='card_quantityCart'>{product.productsInCart.quantity}</div>
-            <div style={{ textAlign: 'end', color: 'gray' }} className='card_totalCart'>Total: <span style={{ color: 'black', fontWeight: '600' }}>${product.price*product.productsInCart.quantity}</span></div>
+            <div style={{ textAlign: 'end', color: 'gray' }} className='card_totalCart'>Total: <span style={{ color: 'black', fontWeight: '600' }}>${product.price * product.productsInCart.quantity}</span></div>
           </div>
         )}
       </div>
