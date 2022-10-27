@@ -24,7 +24,7 @@ const Login = (activeCar) => {
       .then(res => {
         navigate('/')
         localStorage.setItem('token', res.data.data.token)
-        
+        window.alert("You have sign in correctly")
       })
       .catch(err => console.log(err))
     setisLogeed(true)
