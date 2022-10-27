@@ -40,7 +40,7 @@ const Cart = ({ carActive, number }) => {
     axios.get(URL, getConfig())
       .then(res => {
         setproductBougth(res.data.data.cart.products)
-        const Plus = res.data.data.cart.products.map(p => +p.price)
+        const Plus = res.data.data.cart.products.map(p => +p.price*p.productsInCart.quantity)
         setPlusPrices(Plus)
         seta(number)
       })
@@ -60,7 +60,7 @@ const Cart = ({ carActive, number }) => {
             </div>
             <div style={{ textAlign: 'start', fontWeight: '600' }}>{product.title}</div>
             <div className='card_quantityCart'>{product.productsInCart.quantity}</div>
-            <div style={{ textAlign: 'end', color: 'gray' }} className='card_totalCart'>Total: <span style={{ color: 'black', fontWeight: '600' }}>${product.price}</span></div>
+            <div style={{ textAlign: 'end', color: 'gray' }} className='card_totalCart'>Total: <span style={{ color: 'black', fontWeight: '600' }}>${product.price*product.productsInCart.quantity}</span></div>
           </div>
         )}
       </div>
