@@ -1,13 +1,20 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import getConfig from '../Utils/getConfig'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { useRef } from 'react'
 
 
-const CardProduct = ({ product, setnumber }) => {
+const CardProduct = ({ product }) => {
+
+  const Reference = useRef()
+  useEffect(() => {
+    Reference.current.childNodes[0].childNodes[0].id = product.id
+  }, [product])
+
   const putbyId = e => {
-    setnumber(e.target.id)
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
     axios.post(URL,
       {
@@ -41,7 +48,7 @@ const CardProduct = ({ product, setnumber }) => {
             ${product.price}
           </h5>
         </p>
-        <button onClick={putbyId} className='button_buy' id={product.id} >Add to cart</button>
+        <button ref={Reference} onClick={putbyId} className='button_buy' id={product.id} >< AiOutlineShoppingCart id={product.id} /></button>
       </div>
     </article>
   )

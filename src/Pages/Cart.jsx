@@ -3,20 +3,12 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import getConfig from '../Utils/getConfig'
 import '../Styles/Cart.css'
+import CartProducts from '../Components/CartProducts'
 
-const Cart = ({ carActive, number }) => {
+const Cart = ({ carActive }) => {
   const [productsBought, setproductBougth] = useState()
   const [plusPrices, setPlusPrices] = useState([])
-  const [p, setp] = useState()
-  const [a, seta] = useState()
-  console.log(number)
 
-  const deleteProduct = e => {
-    URL = `https://ecommerce-api-react.herokuapp.com/api/v1/cart/${e.target.id}`
-    axios.delete(URL, getConfig())
-      .then(res => setp(res))
-      .catch(err => console.log(err))
-  }
   const addtoPurchase = () => {
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/purchases'
     axios.post(URL, {
@@ -41,33 +33,19 @@ const Cart = ({ carActive, number }) => {
     URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
     axios.get(URL, getConfig())
       .then(res => {
-        console.log(res.data)
         setproductBougth(res.data.data.cart.products)
         const Plus = res.data.data.cart.products.map(p => +p.price * p.productsInCart.quantity)
         setPlusPrices(Plus)
-        seta(number)
       })
-      .catch(err => {
-        console.log(err)
-        seta(number)
-      })
-  }, [p, number])
+      .catch(err => console.log(err))
+  })
 
   return (
 
     <div className={carActive ? 'card_car_inactive' : 'card_car'}>
       <h3 className='text_Cart'>Shopping cart</h3>
       <div className='card_productsCart'>
-        {productsBought?.map(product =>
-          <div className='card_productCart'>
-            <div className='card_deleteCart'>
-              <div style={{ color: 'gray' }}>{product.brand}</div>
-              <button id={product.id} onClick={deleteProduct}>Delete</button>
-            </div>
-            <div style={{ textAlign: 'start', fontWeight: '600' }}>{product.title}</div>
-            <div className='card_quantityCart'>{product.productsInCart.quantity}</div>
-            <div style={{ textAlign: 'end', color: 'gray' }} className='card_totalCart'>Total: <span style={{ color: 'black', fontWeight: '600' }}>${product.price * product.productsInCart.quantity}</span></div>
-          </div>
+        {productsBought?.map(product => <CartProducts product={product} productsBought={productsBought} />
         )}
       </div>
       <div className='text_totalCart'>
