@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import getConfig from '../Utils/getConfig'
-import '../Styles/Cart.css'
 import CartProducts from '../Components/CartProducts'
 
 const Cart = ({ carActive }) => {
@@ -10,7 +9,7 @@ const Cart = ({ carActive }) => {
   const [plusPrices, setPlusPrices] = useState([])
 
   const addtoPurchase = () => {
-    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/purchases'
+    URL = 'hhttps://e-commerce-api.academlo.tech/api/v1/purchases'
     axios.post(URL, {
       "street": "Green St. 1456",
       "colony": "Southwest",
@@ -30,7 +29,7 @@ const Cart = ({ carActive }) => {
   }
 
   useEffect(() => {
-    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
+    URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
     axios.get(URL, getConfig())
       .then(res => {
         setproductBougth(res.data.data.cart.products)
@@ -42,21 +41,22 @@ const Cart = ({ carActive }) => {
 
   return (
 
-    <div className={carActive ? 'card_car_inactive' : 'card_car'}>
-      <h3 className='text_Cart'>Shopping cart</h3>
-      <div className='card_productsCart'>
+    <div className={carActive ? 'w-full md:w-2/3 fixed right-0 p-8 h-screen transition-all bg-white z-10 rounded-2xl shadow-2xl' : 'h-full transition-all fixed -right-16'}>
+      <h3 className='text-3xl font-black mb-5'>Shopping cart</h3>
+      <div className='h-80 overflow-auto'>
         {productsBought?.map(product => <CartProducts product={product} productsBought={productsBought} />
         )}
       </div>
-      <div className='text_totalCart'>
-        <p>Total</p>
-        {
-          plusPrices.length == 0 ? "$0" :
-            <div style={{ color: 'black', fontWeight: '600' }}>${plusPrices.reduce((a, b) => a + b)}</div>
-
-        }
+      <div className='flex items-center justify-evenly my-4'>
+        <p className='font-black text-2xl'>Total</p>
+        <p className='font-black text-2xl'>
+          {
+            plusPrices.length == 0 ? "$0" :
+              <div style={{ color: 'black', fontWeight: '600' }}>${plusPrices.reduce((a, b) => a + b)}</div>
+          }
+        </p>
       </div>
-      <button onClick={addtoPurchase} className='button_Cart'>Checkout</button>
+      <button onClick={addtoPurchase} className='bg-red-600 hover:bg-red-700 p-3 w-3/4 mx-auto block text-lg font-bold text-white'>Checkout</button>
     </div>
   )
 }

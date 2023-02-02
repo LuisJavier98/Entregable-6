@@ -1,30 +1,25 @@
 import axios from 'axios'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { AiOutlineUser } from 'react-icons/ai'
-import { FiArchive } from 'react-icons/fi'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import '../Styles/Login.css'
-import Footer from '../Components/Footer'
-import Header from '../Components/Header'
 
-const Login = (activeCar) => {
-  const { handleSubmit, register, reset } = useForm()
+
+const Login = ({ activeCar }) => {
+  const { handleSubmit, register } = useForm()
   const navigate = useNavigate()
   const [isLogeed, setisLogeed] = useState(false)
   const submit = data => {
-    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/users/login'
+    URL = 'https://e-commerce-api.academlo.tech/api/v1/users/login'
     axios.post(URL, {
       "email": data.email,
       "password": data.password
     })
       .then(res => {
-        navigate('/')
         localStorage.setItem('token', res.data.data.token)
         window.alert("You have sign in correctly")
+        navigate('/')
       })
       .catch(err => console.log(err))
     setisLogeed(true)
@@ -34,40 +29,38 @@ const Login = (activeCar) => {
   useEffect(() => {
     if (localStorage.getItem('token')) { setisLogeed(true) }
     else { setisLogeed(false) }
-
+    console.log('he ingreado')
   }, [])
+
+
   const handleLogout = () => {
     localStorage.removeItem('token')
     setisLogeed(false)
   }
 
 
+
   if (isLogeed) {
     return (
-      <div className='card_Login'>
-        <Header />
-        <form style={{ margin: '0px auto' }} action="">
-          <h2>
-            User Logged
-          </h2>
-          <button style={{ display: 'block', margin: '0px auto' }} onClick={handleLogout}>Logout</button>
-        </form>
-        <Footer className='card_footerLogin' />
-      </div>
+      <form className='py-10 border-2 border-black rounded-2xl shadow-2xl  flex flex-col items-center mx-auto w-full md:w-3/4 my-60 gap-4'>
+        <h2 className='text-4xl font-black'>
+          User Logged
+        </h2>
+        <button className='bg-red-600 hover:bg-red-700 p-4 rounded-xl font-bold text-white'>Logout</button>
+      </form>
     )
   }
   else
     return (
-      <div className='card_Login'>
-        <Header />
-        <form className='card_formLogin' action="" onSubmit={handleSubmit(submit)}>
-          <label htmlFor="email">Email</label> < input re className='card_inputLogin' type="text" name="" required id="email" autoComplete='off' placeholder='Write your email' {...register('email')} />
-          <label htmlFor="password">Password</label><input required type="password" className='card_paswordLogin' id='password' autoComplete='off' placeholder='Write your password' {...register('password')} />
-          <button className='card_buttonLogin' >Login</button>
-          <Link to='/createAccount' style={{ color: 'gray' }} >Do you still have an account?</Link>
-        </form>
-        <Footer className='card_footerLogin' />
-      </div>
+      <form className='flex flex-col my-36 md:w-2/3 md:m-auto md:my-40 border-2 border-black p-6 rounded-2xl shadow-2xl py-10' action="" onSubmit={handleSubmit(submit)}>
+        <label className='text-xl font-black' htmlFor="email">Email</label>
+        < input className='h-12 text-xl rounded-xl' type="text" name="" required id="email" autoComplete='off' placeholder='Write your email' {...register('email')} />
+        <label className='text-xl font-black mt-5' htmlFor="password">Password</label>
+        <input required type="password" className='h-12 text-xl rounded-xl' id='password' autoComplete='off' placeholder='Write your password' {...register('password')} />
+        <button className='border-2 font-bold text-white text-xl bg-red-600 p-4 my-4 w-2/3 md:w-1/5 rounded-xl hover:bg-red-700 mx-auto '>Login</button>
+        <Link to='/createAccount' className='text-center mx-auto font-bold text-xl text-gray-600' >Do not you still have an account?</Link>
+      </form>
+
     )
 }
 

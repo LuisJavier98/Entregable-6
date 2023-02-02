@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
-
 import { useNavigate } from 'react-router-dom'
 import getConfig from '../Utils/getConfig'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
@@ -15,7 +14,7 @@ const CardProduct = ({ product }) => {
   }, [product])
 
   const putbyId = e => {
-    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
+    URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
     axios.post(URL,
       {
         "id": e.target.id,
@@ -35,20 +34,20 @@ const CardProduct = ({ product }) => {
     navigate(`/products/${+e.target.id}`)
   }
   return (
-    <article className='product'>
-      <header className='card_product'>
-        <img className='product_image' onClick={information} id={product.id} src={product.productImgs[0]} alt="Product image" />
+    <article className='product p-6 bg-white border-4 rounded-3xl shadow-xl'>
+      <header className='w-11/12 m-auto h-80 object-cover'>
+        <img className='cursor-pointer w-full h-full ' onClick={information} id={product.id} src={product.productImgs[0]} alt="Product image" />
       </header>
       <div className='product_caracteristics'>
-        <h4 className='product_title'>{product.title}</h4>
+        <h4 className='font-black text-xl text-center my-5'>{product.title}</h4>
       </div>
-      <div className='card_price'>
-        <p style={{ color: 'rgb(163, 147, 147)' }}>Price
+      <div className='flex justify-between '>
+        <p className='font-bold text-lg text-gray-700'>Price
           <br /><h5 style={{ margin: '0px', color: 'black', fontWeight: '900' }}>
             ${product.price}
           </h5>
         </p>
-        <button ref={Reference} onClick={putbyId} className='button_buy' id={product.id} >< AiOutlineShoppingCart id={product.id} /></button>
+        <button ref={Reference} onClick={putbyId} className=' text-3xl w-14 rounded-full bg-red-600 text-gray-50 flex justify-center items-center' id={product.id} >< AiOutlineShoppingCart id={product.id} /></button>
       </div>
     </article>
   )

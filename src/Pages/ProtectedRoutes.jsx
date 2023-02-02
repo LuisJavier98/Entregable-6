@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoutes = () => {
@@ -8,8 +7,6 @@ const ProtectedRoutes = () => {
   else {
     return <Navigate to='/login' />
   }
-
-
 }
 
 export default ProtectedRoutes

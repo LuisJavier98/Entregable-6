@@ -2,20 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardProduct from '../Components/CardProduct'
 import { getAllProducts } from '../store/slices/products.slice'
-import '../Styles/Home.css'
 import { IoIosArrowDown } from 'react-icons/io'
 import { AiFillFilter } from 'react-icons/ai'
 import { GrFormClose } from 'react-icons/gr'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import Cart from './Cart'
-import Header from '../Components/Header'
-import Footer from '../Components/Footer'
 
 
-const Home = () => {
-  const navigate = useNavigate()
+const Home = ({ carActive }) => {
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
   const [categories, setcategories] = useState()
@@ -24,10 +19,9 @@ const Home = () => {
   const [category, setcategory] = useState()
   const [filter, setfilter] = useState(true)
   const [priceActive, setpriceActive] = useState(false)
-  const [carActive, setcarActive] = useState(true)
   const [categoryActive, setcategoryActive] = useState(false)
-  const [productName, setproductName] = useState()
-
+  const [productName, setproductName] = useState('')
+  const productsFiltered = products?.filter(product => product.title.toLowerCase().includes(productName))
 
   const { register, formState: { errors }, watch, handleSubmit } = useForm()
   const onSubmit = data => {
@@ -46,15 +40,11 @@ const Home = () => {
     setcategoryActive(!categoryActive)
   }
 
-  const activateCar = () => {
-    if (localStorage.getItem('token')) { setcarActive(!carActive) }
-    else { navigate('/Login') }
-  }
 
 
   useEffect(() => {
     dispatch(getAllProducts())
-    URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/products/categories'
+    URL = 'https://e-commerce-api.academlo.tech/api/v1/products/categories'
     axios.get(URL)
       .then(res => setcategories(res.data.data.categories))
       .catch(err => console.log(err))
@@ -78,73 +68,56 @@ const Home = () => {
 
 
   return (
-    <div className='card_home'>
-      <Header activateCar={activateCar} />
+    <div className='overflow-hidden relative '>
       <div className='card_bodyHome'>
         {localStorage.getItem('token') ?
-          <Cart carActive={carActive}  /> :
+          <Cart carActive={carActive} /> :
           ""
         }
-        <div className='card_body'>
+        <div className='md:flex pt-10 gap-10 h-full pl-10'>
           <div className={filter ? 'card_filter' : 'card_filter_active'}>
-            <div className='card_fixed'>
-              <div className='text_close'>
+            <div className='sticky top-0  h-auto'>
+              {/* <div className='text_close'>
                 <button className='button_close' onClick={activate}> <GrFormClose /></button>
+              </div> */}
+              <div className='font-black text-2xl border-b-2 border-gray-900 pb-2'>Filters</div>
+              <div className='flex justify-between pt-4 pb-2'>
+                <p className='font-bold text-2xl  '>Price</p>
+                <button onClick={activatePrice} className={priceActive ? 'transition-all' : 'rotate-180 transition-all'}><IoIosArrowDown /></button>
               </div>
-              <div className='text_filter'><strong>Filters</strong></div>
-              <div className='card_separate'>
-                <p><strong>Price</strong></p>
-                <button onClick={activatePrice} className={priceActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
-              </div>
-              <form action="" onSubmit={dataPrice} className={priceActive ? 'form_price' : 'form_price_inactive'}>
-                <label htmlFor="">From</label>
-                <input type="number" min='0' placeholder='Please, write a price' required />
-                <label htmlFor="">To</label>
-                <input type="number" min='0' placeholder='Please, write a price' required />
-                <button className='button_filter'>Filter price</button>
+              <form onSubmit={dataPrice} className={priceActive ? 'flex gap-4 flex-wrap md:flex-col md:flex-nowrap h-auto overflow-hidden transition-height' : ' transition-height flex h-0 gap-4 flex-wrap md:flex-col overflow-hidden '}>
+                <label className='flex items-center text-xl font-medium'>From</label>
+                <input className='h-10' type="number" min='0' placeholder='Please, write a price' required />
+                <label className='flex items-center text-xl font-medium'>To</label>
+                <input className='h-10' type="number" min='0' placeholder='Please, write a price' required />
+                <button className='bg-red-600 rounded-md px-5 h-10 text-xl font-medium text-white'>Filter price</button>
               </form>
-              <div className='card_category'>
-                <div className='card_separate'>
-                  <p><strong>Category</strong></p>
-                  <button onClick={activateCategory} className={categoryActive ? 'card_down' : 'card_up'}><IoIosArrowDown /></button>
+              <div>
+                <div className='flex pt-4 pb-4 justify-between'>
+                  <p className='font-bold text-2xl '>Category</p>
+                  <button onClick={activateCategory} className={categoryActive ? 'transition-all' : 'rotate-180 transition-all'}><IoIosArrowDown /></button>
                 </div>
-                <ul className={categoryActive ? 'card_categories' : 'card_categories_inactive'}>
-                  {categories?.map(category => <li className='card_category' onClick={dataCategory} id={category.id} key={category.id}>{category.name}</li>)}
+                <ul className={categoryActive ? ' h-auto list-decimal  overflow-hidden transition-height flex flex-col gap-4' : 'h-0 overflow-hidden transition-height flex flex-col gap-2'}>
+                  {categories?.map(category => <li className='cursor-pointer font-medium text-xl ' onClick={dataCategory} id={category.id} key={category.id}>{category.name}</li>)}
                 </ul>
               </div>
             </div>
           </div>
-          <div className='Searcher_products'>
-            <form action="" className='card_form' onSubmit={handleSubmit(onSubmit)}>
-              <input type="text" placeholder='What are you looking for?' autoComplete='off' {...register('product', { required: true })} />
-            </form>
-            <button className={filter ? 'filter_button_active' : 'filter_button'} onClick={activate}><AiFillFilter />Filters</button>
-            <div className='card_products'>
-              {
-                products?.map(product => {
-                  if (minValue && maxValue) {
-                    if (+product.price > minValue && +product.price < maxValue)
-                      return <CardProduct key={product.id} product={product} />
-                  }
-                  else if (category) {
-                    if (category == product.category.id)
-                      return <CardProduct key={product.id} product={product} />
-                  }
-                  else {
-                    if (productName) {
-                      if (product.title.toLowerCase().includes(productName))
-                        return <CardProduct key={product.name} product={product} />
-                    }
-                    else
-                      return <CardProduct key={product.name} product={product}  />
-                  }
-                })
+          <div >
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10 '>
+              <form className=' col-span-1 md:col-span-2 lg:col-span-3' action="" onSubmit={handleSubmit(onSubmit)}>
+                <input type="text" className='w-full h-12 rounded-xl' placeholder='What are you looking for?' autoComplete='off' {...register('product', { required: true })} />
+              </form>
+              {productName.split('').length > 1 ?
+                productsFiltered.length !== 0 ?
+                  productsFiltered.map(product => <CardProduct key={product.name} product={product} />) : <div className='font-bold text-3xl mb-96 text-gray-700 '>Product not found</div>
+                :
+                products?.map(product => <CardProduct key={product.name} product={product} />)
               }
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

@@ -2,20 +2,17 @@ import React from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
 import { FiArchive } from 'react-icons/fi'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { Link, NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const Header = ({activateCar}) => {
+const Header = ({ activateCar }) => {
+    const navigate = useNavigate()
     return (
-        <header className='card_header'>
-            <h1 style={{
-                color: '#f85555'
-            }}><Link style={{
-                color: '#f85555',textDecoration:'none'
-            }} to='/'>e-commerce</Link></h1>
-            <div className='buttons_routes'>
-                <button className='button_user' ><NavLink style={{color:'rgb(163, 147, 147)'}} to='/login'><AiOutlineUser /></NavLink  ></button>
-                <button className='button_purchase'><Link style={{color:'rgb(163, 147, 147)'}} to='/purchases'><FiArchive /></Link></button>
-                <button onClick={activateCar} className='button_car'><AiOutlineShoppingCart /></button>
+        <header className='bg-gray-800 z-20 opacity-90 card_header flex sticky top-0 flex-col gap-4 md:flex md:flex-row justify-around border-b-2 p-8'>
+            <h1 className='mt-0 text-red-600  text-4xl sm:text-5xl text-center font-bold cursor-pointer' onClick={() => navigate('/')} >e-commerce</h1>
+            <div className='flex gap-4 md:gap-8 justify-center text-gray-50 '>
+                <button className='text-3xl sm:text-4xl px-5 md:border-r-2 text-white' onClick={() => navigate('/login')} ><AiOutlineUser /></button>
+                <button className='text-3xl sm:text-4xl px-5 md:border-r-2  text-white' onClick={() => navigate('/purchases')}><FiArchive /></button>
+                <button onClick={activateCar} className=' px-5 md:border-r-2 text-3xl sm:text-4xl text-white'><AiOutlineShoppingCart /></button>
             </div>
         </header>
     )
