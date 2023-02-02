@@ -14,7 +14,7 @@ import Purchases from './Pages/Purchases'
 
 
 function App() {
-  const [carActive, setcarActive] = useState(true)
+  const [carActive, setcarActive] = useState(false)
   const navigate = useNavigate()
   const activateCar = () => {
     if (localStorage.getItem('token')) { setcarActive(!carActive) }
@@ -25,7 +25,7 @@ function App() {
     <div className="app">
       <Header activateCar={activateCar} />
       <Routes>
-        <Route path='/' element={<Home carActive={carActive} />} />
+        <Route path='/' element={<Home carActive={carActive} activateCar={activateCar} />} />
         <Route path='/login' element={<Login />} />
         <Route path='/products/:id' element={<ProductId />} />
         <Route path='/createAccount' element={<CreateAccount />} />

@@ -6,7 +6,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { useRef } from 'react'
 
 
-const CardProduct = ({ product }) => {
+const CardProduct = ({ product, carrito, setcarrito }) => {
 
   const Reference = useRef()
   useEffect(() => {
@@ -14,14 +14,15 @@ const CardProduct = ({ product }) => {
   }, [product])
 
   const putbyId = e => {
+    console.log(e.target.id)
     URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
     axios.post(URL,
       {
         "id": e.target.id,
         "quantity": 1
       }, getConfig())
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
+      .then(res => setcarrito([...carrito, res.data]))
+      .catch(err => window.alert('Already exists a similar product in your cart'))
   }
   const navigate = useNavigate()
   const information = e => {

@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form'
 import Cart from './Cart'
 
 
-const Home = ({ carActive }) => {
+const Home = ({ carActive, activateCar }) => {
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
   const [categories, setcategories] = useState()
@@ -21,6 +21,7 @@ const Home = ({ carActive }) => {
   const [priceActive, setpriceActive] = useState(false)
   const [categoryActive, setcategoryActive] = useState(false)
   const [productName, setproductName] = useState('')
+  const [carrito, setcarrito] = useState([])
   const productsFiltered = products?.filter(product => product.title.toLowerCase().includes(productName))
 
   const { register, formState: { errors }, watch, handleSubmit } = useForm()
@@ -68,15 +69,15 @@ const Home = ({ carActive }) => {
 
 
   return (
-    <div className='overflow-hidden relative '>
-      <div className='card_bodyHome'>
-        {localStorage.getItem('token') ?
-          <Cart carActive={carActive} /> :
-          ""
-        }
+    <>
+      {localStorage.getItem('token') ?
+        <Cart carActive={carActive} activateCar={activateCar} setcarrito={setcarrito} carrito={carrito} /> :
+        ""
+      }
+      <div className=''>
         <div className='md:flex pt-10 gap-10 h-full pl-10'>
           <div className={filter ? 'card_filter' : 'card_filter_active'}>
-            <div className='sticky top-0  h-auto'>
+            <div className='sticky top-10  h-auto'>
               {/* <div className='text_close'>
                 <button className='button_close' onClick={activate}> <GrFormClose /></button>
               </div> */}
@@ -112,13 +113,13 @@ const Home = ({ carActive }) => {
                 productsFiltered.length !== 0 ?
                   productsFiltered.map(product => <CardProduct key={product.name} product={product} />) : <div className='font-bold text-3xl mb-96 text-gray-700 '>Product not found</div>
                 :
-                products?.map(product => <CardProduct key={product.name} product={product} />)
+                products?.map(product => <CardProduct carrito={carrito} setcarrito={setcarrito} key={product.name} product={product} />)
               }
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
