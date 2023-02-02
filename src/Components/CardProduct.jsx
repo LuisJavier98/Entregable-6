@@ -48,7 +48,7 @@ const CardProduct = ({ product, carrito, setcarrito }) => {
             ${product.price}
           </h5>
         </p>
-        <button ref={Reference} onClick={putbyId} className=' text-3xl w-14 rounded-full bg-red-600 text-gray-50 flex justify-center items-center' id={product.id} >< AiOutlineShoppingCart id={product.id} /></button>
+        <button ref={Reference} onClick={putbyId} className=' text-3xl w-14 hover:bg-red-700 rounded-full bg-red-600 text-gray-50 flex justify-center items-center' id={product.id} >< AiOutlineShoppingCart id={product.id} /></button>
       </div>
     </article>
   )

@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import getConfig from '../Utils/getConfig'
+import getConfig, { fecha } from '../Utils/getConfig'
 
 
 
@@ -13,41 +13,43 @@ import getConfig from '../Utils/getConfig'
 const Purchases = () => {
 
   const [productsPurchased, setproductsPurchased] = useState()
+  const navigate = useNavigate()
   useEffect(() => {
-    URL = 'https://e-commerce-api.academlo.tech/api/v1/purchases'
+    const URL = 'https://e-commerce-api.academlo.tech/api/v1/purchases'
     axios.get(URL, getConfig())
       .then(res => setproductsPurchased(res.data.data.purchases))
       .catch(err => console.log(err))
   }, [])
-  console.log(productsPurchased)
 
   return (
-    <div className='card_Purchases' >
-      <div className='card_bodyPurchases'>
-        <p className='text_direction'> <button className='button_back'>
-          <Link className='link_back' to='/'><BsFillArrowLeftCircleFill /></Link>
-        </button>
-          <br />
-          Home <AiOutlineArrowRight style={{ color: '#f85555' }} />
-          <strong>Purchases</strong></p>
-        <h2>My purchases</h2>
-        <div className='card_productsPurchased'>
-          {productsPurchased?.map(product =>
-            <div className='card_caracteristicsPurchases'>
-              <h3 style={{ borderBottom: '1px solid gray', padding: '8px 0px' }}>{product.createdAt.slice(0, 10)}</h3>
-              <div className='card_PropertiesPurchases'>
-                {
-                  product.cart.products.map(p =>
-                    <div className='card_PropertyPurchases' style={{ margin: '8px 0px' }}>
-                      <div style={{ maxWidth: '30%' }}>{p.title}</div>
-                      <div style={{ border: '1px solid gray', width: '5%', textAlign: 'center', height: '15px' }}>{p.productsInCart.quantity}</div>
-                      <div>${p.price}</div>
-                    </div>
-                  )
-                }
-              </div>
-            </div>)}
-        </div>
+
+    <div className='mx-6'>
+      <p className='flex items-center gap-2 my-6 '>
+        <p className='font-bold text-lg cursor-pointer' onClick={() => navigate('/')}>Home</p>
+        < AiOutlineArrowRight className='text-lg text-red-600' />
+        <p className='font-bold text-lg'>Purchases</p>
+      </p>
+      <h2 className='font-black text-2xl '>My purchases</h2>
+      <div className='flex flex-col gap-10 items-center my-10'>
+        {productsPurchased?.map(product => (
+          <table key={product.id} className='w-full md:w-2/3 p-6 border-2 border-black shadow-2xl rounded-2xl'  >
+            <thead className='border-b-2 border-black'>
+              <tr className='text-2xl font-bold text-red-600 '>
+                {fecha(product.createdAt)}
+              </tr>
+            </thead>
+            <tbody className='card_PropertiesPurchases'>
+              {
+                product.cart.products.map(p =>
+                (<tr key={p.id} className='border-b-2 border-dotted border-black flex flex-row' >
+                  <td className='font-bold text-lg flex-1 text-center'  >{p.title}</td>
+                  <td className='font-black text-lg flex-1 text-center'>{p.productsInCart.quantity}</td>
+                  <td className='font-medium text-lg text-green-700 flex-1 text-center'>${p.price}</td>
+                </tr>)
+                )
+              }
+            </tbody>
+          </table>))}
       </div>
     </div>
   )

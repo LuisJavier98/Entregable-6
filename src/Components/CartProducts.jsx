@@ -6,6 +6,7 @@ import getConfig from '../Utils/getConfig'
 
 const CartProducts = ({ product, setcarrito }) => {
     const Reference = useRef()
+    const url = 'https://e-commerce-api.academlo.tech/api/v1/cart'
 
     useEffect(() => {
         if (Reference.current) {
@@ -15,16 +16,14 @@ const CartProducts = ({ product, setcarrito }) => {
     })
 
     const deleteProduct = e => {
-        URL = `https://e-commerce-api.academlo.tech/api/v1/cart/${e.target.id}`
-        axios.delete(URL, getConfig())
+        axios.delete(`${url}/${e.target.id}`, getConfig())
             .then(res => setcarrito([res.data]))
             .catch(err => console.log(err))
     }
 
     const NewCartRest = e => {
         if (product.productsInCart.quantity > 1) {
-            URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
-            axios.patch(URL, {
+            axios.patch(url, {
                 "id": e.target.id,
                 "newQuantity": product.productsInCart.quantity - 1
             }, getConfig())
@@ -34,8 +33,7 @@ const CartProducts = ({ product, setcarrito }) => {
     }
 
     const NewCartPlus = e => {
-        URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
-        axios.patch(URL, {
+        axios.patch(url, {
             "id": e.target.id,
             "newQuantity": product.productsInCart.quantity + 1
         }, getConfig())
@@ -51,7 +49,7 @@ const CartProducts = ({ product, setcarrito }) => {
                 <button ref={Reference} id={product.id} onClick={deleteProduct}><BiTrash className='text-red-600 text-2xl' id={product.id} /></button>
             </div>
             <div className='text-2xl font-bold'>{product.title}</div>
-            <div className='flex w-1/6'>
+            <div className='flex w-1/4 md:w-1/6'>
                 <button onClick={NewCartRest} id={product.id} className='flex-1 text-center bg-red-600 hover:bg-red-700 text-white font-bold' >-</button>
                 <div id={product.id} className='flex-1 text-center'>{product.productsInCart.quantity}</div>
                 <button onClick={NewCartPlus} id={product.id} className='flex-1 text-center bg-red-600 hover:bg-red-700 text-white font-bold'>+</button>
