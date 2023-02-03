@@ -31,7 +31,7 @@ const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
     const URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
     axios.get(URL, getConfig())
       .then(res => setproductBougth(res.data.data.cart.products))
-      .catch(err => window.alert('You have asked too many requests , please update the page'))
+      .catch(err => console.log(err))
   }, [carrito])
 
 
@@ -50,7 +50,6 @@ const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
           <p className='font-black text-2xl'>Total</p>
           <p className='font-black text-2xl'>
             <div className='font-bold text-black'>${productsBought?.map(p => (+p.price * p.productsInCart.quantity.toFixed(2))).reduce((a, b) => a + b, 0).toFixed(2)}</div>
-
           </p>
         </div>
         <button onClick={addtoPurchase} className='bg-red-600 hover:bg-red-700 p-3 w-3/4 mx-auto block text-lg font-bold text-white'>Checkout</button>
