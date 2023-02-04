@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CardProduct from '../Components/CardProduct'
 import { getAllProducts } from '../store/slices/products.slice'
 import { useForm } from 'react-hook-form'
 import Cart from './Cart'
 import Filter from '../Components/Filter'
+const LazyCardProduct = React.lazy(() => import('../Components/CardProduct'))
+import '../App.css'
 
 
 const Home = ({ carActive, activateCar }) => {
@@ -37,14 +38,28 @@ const Home = ({ carActive, activateCar }) => {
         <Filter setValues={setValues} setcategory={setcategory} />
         <div >
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10 '>
-            <form className=' col-span-1 md:col-span-2 lg:col-span-3' action="" onSubmit={handleSubmit(onSubmit)}>
+            <form className=' col-span-1 md:col-span-2 lg:col-span-3' onSubmit={handleSubmit(onSubmit)}>
               <input type="text" className='w-full h-12 rounded-xl' placeholder='What are you looking for?' autoComplete='off' {...register('product', { required: true })} />
             </form>
             {
               productsFiltered?.length !== 0 ?
-                productsFiltered?.map(product => <CardProduct carrito={carrito} setcarrito={setcarrito} key={product.id} product={product} />)
+                productsFiltered?.map(product => (
+                  <Suspense fallback={
+                    <div class="sk-chase">
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                      <div class="sk-chase-dot"></div>
+                    </div>
+                  } key={product.id}>
+                    <LazyCardProduct carrito={carrito} setcarrito={setcarrito} product={product} />
+                  </Suspense>
+
+                ))
                 :
-                <div className='text-gray-800 text-2xl font-bold'>Products not found</div>
+                <div className='text-gray-800 text-2xl font-bold my-14'>Products not found</div>
             }
           </div>
         </div>

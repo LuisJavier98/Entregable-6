@@ -40,13 +40,13 @@ const CardProduct = ({ product, carrito, setcarrito }) => {
         <img className='cursor-pointer w-full h-full ' onClick={information} id={product.id} src={product.productImgs[0]} alt="Product image" />
       </header>
       <div className='product_caracteristics'>
-        <h4 className='font-black text-xl text-center my-5'>{product.title}</h4>
+        <h4 className='font-black text-xl text-center my-5 truncate'>{product.title}</h4>
       </div>
       <div className='flex justify-between '>
         <p className='font-bold text-lg text-gray-700'>Price
-          <br /><h5 style={{ margin: '0px', color: 'black', fontWeight: '900' }}>
+          <br /><span style={{ margin: '0px', color: 'black', fontWeight: '900' }}>
             ${product.price}
-          </h5>
+          </span>
         </p>
         <button ref={Reference} onClick={putbyId} className=' text-3xl w-14 hover:bg-red-700 rounded-full bg-red-600 text-gray-50 flex justify-center items-center' id={product.id} >< AiOutlineShoppingCart id={product.id} /></button>
       </div>

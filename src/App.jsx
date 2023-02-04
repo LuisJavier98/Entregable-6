@@ -11,6 +11,7 @@ import Login from './Pages/Login'
 import ProductId from './Pages/ProductId'
 import ProtectedRoutes from './Pages/ProtectedRoutes'
 import Purchases from './Pages/Purchases'
+import CreateContext from './context/CreateContext'
 
 
 function App() {
@@ -22,20 +23,22 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <Header activateCar={activateCar} />
-      <Routes>
-        <Route path='/' element={<Home carActive={carActive} activateCar={activateCar} />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/products/:id' element={<ProductId />} />
-        <Route path='/createAccount' element={<CreateAccount />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/purchases' element={<Purchases />} />
-        </Route>
-      </Routes>
-      <Footer />
-    </div>
+    <CreateContext>
+      <div className="app">
+        <Header activateCar={activateCar} />
+        <Routes>
+          <Route path='/' element={<Home carActive={carActive} activateCar={activateCar} />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/products/:id' element={<ProductId />} />
+          <Route path='/createAccount' element={<CreateAccount />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/purchases' element={<Purchases />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </div>
+    </CreateContext>
   )
 }
 

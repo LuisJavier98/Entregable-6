@@ -3,9 +3,13 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import getConfig from '../Utils/getConfig'
 import CartProducts from '../Components/CartProducts'
+import { useContext } from 'react'
+import { DataContext } from '../context/CreateContext'
 
 const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
-  const [productsBought, setproductBougth] = useState([])
+  console.log(DataContext)
+
+  const { productsBought, setproductBougth } = useContext(DataContext)
 
   const addtoPurchase = () => {
     const URL = 'https://e-commerce-api.academlo.tech/api/v1/purchases'
@@ -49,7 +53,7 @@ const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
         <div className='flex items-center justify-evenly my-4'>
           <p className='font-black text-2xl'>Total</p>
           <p className='font-black text-2xl'>
-            <div className='font-bold text-black'>${productsBought?.map(p => (+p.price * p.productsInCart.quantity.toFixed(2))).reduce((a, b) => a + b, 0).toFixed(2)}</div>
+            <span className='font-bold text-green-700'>${productsBought?.map(p => (+p.price * p.productsInCart.quantity.toFixed(2))).reduce((a, b) => a + b, 0).toFixed(2)}</span>
           </p>
         </div>
         <button onClick={addtoPurchase} className='bg-red-600 hover:bg-red-700 p-3 w-3/4 mx-auto block text-lg font-bold text-white'>Checkout</button>
