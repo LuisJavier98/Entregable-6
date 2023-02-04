@@ -6,9 +6,13 @@ import Cart from './Cart'
 import Filter from '../Components/Filter'
 const LazyCardProduct = React.lazy(() => import('../Components/CardProduct'))
 import '../App.css'
+import { useContext } from 'react'
+import { DataContext } from '../context/CreateContext'
 
 
-const Home = ({ carActive, activateCar }) => {
+const Home = () => {
+
+  const { carActive, activateCar } = useContext(DataContext)
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
   const [productName, setproductName] = useState('')

@@ -7,9 +7,9 @@ import { useContext } from 'react'
 import { DataContext } from '../context/CreateContext'
 
 const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
-  console.log(DataContext)
 
-  const { productsBought, setproductBougth } = useContext(DataContext)
+
+  const { productsBought, setproductBougth, setcarActive } = useContext(DataContext)
 
   const addtoPurchase = () => {
     const URL = 'https://e-commerce-api.academlo.tech/api/v1/purchases'
@@ -21,9 +21,9 @@ const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
       "references": "Some references"
     }, getConfig())
       .then(res => {
-        console.log(res.data)
         setproductBougth([])
-        window.alert('Your products bought are in the purchase')
+        window.alert('Your products bought are in the purchase page')
+        setcarActive(false)
       })
       .catch(err => {
         console.log(err)

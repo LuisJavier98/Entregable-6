@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { DataContext } from '../context/CreateContext'
 
-const Header = ({ activateCar }) => {
+const Header = () => {
+    const { activateCar } = useContext(DataContext)
     const navigate = useNavigate()
     const { productsBought } = useContext(DataContext)
     return (
@@ -15,7 +16,7 @@ const Header = ({ activateCar }) => {
             <div className='flex gap-4 md:gap-8 justify-center text-gray-50 '>
                 <button className='text-3xl sm:text-4xl px-5 md:border-r-2 text-white' onClick={() => navigate('/login')} ><AiOutlineUser /></button>
                 <button className='text-3xl sm:text-4xl px-5 md:border-r-2  text-white' onClick={() => navigate('/purchases')}><FiArchive /></button>
-                <button onClick={activateCar} className=' px-5 md:border-r-2 text-3xl sm:text-4xl relative text-white'><AiOutlineShoppingCart /><p className='absolute text-sm text-white font-bold top-0 right-0 bg-red-600 rounded-full w-5'>{productsBought.length}</p></button>
+                <button onClick={activateCar} className=' px-5 md:border-r-2 text-3xl sm:text-4xl relative text-white'><AiOutlineShoppingCart /> {productsBought.length !== 0 ? <p className='absolute text-sm text-white font-bold top-0 right-0 bg-red-600 rounded-full w-5'>{productsBought.length}</p> : ''}</button>
             </div>
         </header>
     )

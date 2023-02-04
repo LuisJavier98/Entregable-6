@@ -15,19 +15,12 @@ import CreateContext from './context/CreateContext'
 
 
 function App() {
-  const [carActive, setcarActive] = useState(false)
-  const navigate = useNavigate()
-  const activateCar = () => {
-    if (localStorage.getItem('token')) { setcarActive(!carActive) }
-    else { navigate('/Login') }
-  }
-
   return (
     <CreateContext>
       <div className="app">
-        <Header activateCar={activateCar} />
+        <Header />
         <Routes>
-          <Route path='/' element={<Home carActive={carActive} activateCar={activateCar} />} />
+          <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/products/:id' element={<ProductId />} />
           <Route path='/createAccount' element={<CreateAccount />} />
