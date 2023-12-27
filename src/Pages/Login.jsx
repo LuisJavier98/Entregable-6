@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { url } from '../Utils/getConfig'
 
 
 const Login = ({ activeCar }) => {
@@ -11,25 +12,22 @@ const Login = ({ activeCar }) => {
   const navigate = useNavigate()
   const [isLogeed, setisLogeed] = useState(false)
   const submit = data => {
-    URL = 'https://e-commerce-api.academlo.tech/api/v1/users/login'
-    axios.post(URL, {
+    axios.post(`${url}/api/usuario/login`, {
       "email": data.email,
-      "password": data.password
+      "contraseña": data.password
     })
       .then(res => {
-        localStorage.setItem('token', res.data.data.token)
-        window.alert("You have sign in correctly")
+        localStorage.setItem('token', res.data.token)
+        // window.alert("You have sign in correctly")
         navigate('/')
+        setisLogeed(true)
       })
       .catch(err => console.log(err))
-    setisLogeed(true)
-
   }
 
   useEffect(() => {
     if (localStorage.getItem('token')) { setisLogeed(true) }
     else { setisLogeed(false) }
-    console.log('he ingreado')
   }, [])
 
 
@@ -46,7 +44,7 @@ const Login = ({ activeCar }) => {
         <h2 className='text-4xl font-black'>
           User Logged
         </h2>
-        <button className='bg-red-600 hover:bg-red-700 p-4 rounded-xl font-bold text-white'>Logout</button>
+        <button onClick={handleLogout} className='bg-red-600 hover:bg-red-700 p-4 rounded-xl font-bold text-white'>Logout</button>
       </form>
     )
   }

@@ -1,5 +1,4 @@
 
-import { useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import CreateAccount from './Components/CreateAccount'
@@ -14,13 +13,16 @@ import Purchases from './Pages/Purchases'
 import CreateContext from './context/CreateContext'
 
 
+
 function App() {
+
+
   return (
     <CreateContext>
       <div className="app">
         <Header />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route  path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/products/:id' element={<ProductId />} />
           <Route path='/createAccount' element={<CreateAccount />} />

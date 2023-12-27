@@ -6,9 +6,11 @@ const getConfig = () => (
     }
 )
 
-export function fecha(fecha) {
-    const datos = new Date(fecha).toDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })
+export function fecha(fecha: Date): String {
+    const datos: String = new Date(fecha).toDateString()
     return datos
 }
+
+export const url = 'http://localhost:8000'
 
 export default getConfig 

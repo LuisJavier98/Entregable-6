@@ -1,29 +1,24 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import getConfig from '../Utils/getConfig'
+import getConfig, { url } from '../Utils/getConfig'
 import CartProducts from '../Components/CartProducts'
 import { useContext } from 'react'
-import { DataContext } from '../context/CreateContext'
+import { DataContext, DataContextProps } from '../context/CreateContext'
+import { Product, ProductInCart } from '../Interfaces/Interfaces'
 
-const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
+const Cart = ({ carrito, setcarrito }: any) => {
 
-
-  const { productsBought, setproductBougth, setcarActive } = useContext(DataContext)
+  const { productsBought, setproductBought, setcarActive, carActive, activateCar }: DataContextProps = useContext(DataContext)
 
   const addtoPurchase = () => {
-    const URL = 'https://e-commerce-api.academlo.tech/api/v1/purchases'
-    axios.post(URL, {
-      "street": "Green St. 1456",
-      "colony": "Southwest",
-      "zipCode": 12345,
-      "city": "USA",
-      "references": "Some references"
+    axios.post(`${url}/api/compras`, {
+      "direccion": "Green St. 1456",
     }, getConfig())
       .then(res => {
-        setproductBougth([])
-        window.alert('Your products bought are in the purchase page')
+        setproductBought([])
         setcarActive(false)
+        window.alert('Your products bought are in the purchase page')
       })
       .catch(err => {
         console.log(err)
@@ -32,12 +27,12 @@ const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
   }
 
   useEffect(() => {
-    const URL = 'https://e-commerce-api.academlo.tech/api/v1/cart'
-    axios.get(URL, getConfig())
-      .then(res => setproductBougth(res.data.data.cart.products))
+    axios.get(`${url}/api/carrito`, getConfig())
+      .then(res => {
+        setproductBought(res.data)
+      })
       .catch(err => console.log(err))
   }, [carrito])
-
 
   return (
     <div className={carActive ? 'w-full fixed top-0 z-10 opacity-95 right-0 h-screen transition-all bg-gray-800 duration-500' : 'h-screen duration-500 w-full transition-all fixed top-0 z-10  -right-16'}>
@@ -47,13 +42,15 @@ const Cart = ({ carActive, activateCar, carrito, setcarrito }) => {
           <button onClick={() => activateCar()}>X</button>
         </div>
         <div className='h-80 overflow-auto flex flex-col gap-4'>
-          {productsBought?.map(product => <CartProducts key={product.id} product={product} productsBought={productsBought} setcarrito={setcarrito} />
+          {productsBought?.map((product: ProductInCart, index) => <CartProducts key={index} product={product} setcarrito={setcarrito} />
           )}
         </div>
         <div className='flex items-center justify-evenly my-4'>
           <p className='font-black text-2xl'>Total</p>
           <p className='font-black text-2xl'>
-            <span className='font-bold text-green-700'>${productsBought?.map(p => (+p.price * p.productsInCart.quantity.toFixed(2))).reduce((a, b) => a + b, 0).toFixed(2)}</span>
+            <span className='font-bold text-green-700'>
+              ${productsBought?.map((p: ProductInCart) => (+p.precio * p.cantidad)).reduce((a: number, b: number) => a + b, 0).toFixed(2)}
+            </span>
           </p>
         </div>
         <button onClick={addtoPurchase} className='bg-red-600 hover:bg-red-700 p-3 w-3/4 mx-auto block text-lg font-bold text-white'>Checkout</button>

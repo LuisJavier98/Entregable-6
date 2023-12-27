@@ -4,9 +4,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import getConfig, { fecha } from '../Utils/getConfig'
-
-
+import getConfig, { fecha, url } from '../Utils/getConfig'
 
 
 
@@ -15,11 +13,11 @@ const Purchases = () => {
   const [productsPurchased, setproductsPurchased] = useState()
   const navigate = useNavigate()
   useEffect(() => {
-    const URL = 'https://e-commerce-api.academlo.tech/api/v1/purchases'
-    axios.get(URL, getConfig())
-      .then(res => setproductsPurchased(res.data.data.purchases))
+    axios.get(`${url}/api/compras`, getConfig())
+      .then(res => setproductsPurchased(res.data))
       .catch(err => console.log(err))
   }, [])
+  console.log(productsPurchased)
 
   return (
 
