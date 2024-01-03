@@ -5,7 +5,8 @@ import getConfig, { url } from '../Utils/getConfig'
 import CartProducts from '../Components/CartProducts'
 import { useContext } from 'react'
 import { DataContext, DataContextProps } from '../context/CreateContext'
-import { Product, ProductInCart } from '../Interfaces/Interfaces'
+import { ProductInCart } from '../Interfaces/Interfaces'
+import { toast } from 'react-toastify'
 
 const Cart = ({ carrito, setcarrito }: any) => {
 
@@ -18,7 +19,9 @@ const Cart = ({ carrito, setcarrito }: any) => {
       .then(res => {
         setproductBought([])
         setcarActive(false)
-        window.alert('Your products bought are in the purchase page')
+        toast.success('Los productos se encuentran en la sección de compras', {
+          autoClose: 1000
+        })
       })
       .catch(err => {
         console.log(err)

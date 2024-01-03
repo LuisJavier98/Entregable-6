@@ -31,8 +31,8 @@ export interface Product {
   imagen: string;
 }
 
-export interface ProductInCart{
-  id:number;
+export interface ProductInCart {
+  id: number;
   nombre: string;
   categoria: string;
   cantidad: number;
@@ -72,4 +72,12 @@ export interface SetProductGlobalAction {
 
 export interface InitialState {
   products: Product[]
+}
+
+export interface Compras {
+  direccion: string;
+  fechaComprada: Date,
+  id: number,
+  producto: Product,
+  cantidad: number
 }

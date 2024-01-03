@@ -5,6 +5,7 @@ import getConfig, { url } from '../Utils/getConfig'
 import { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { Product, ProductInCart } from '../Interfaces/Interfaces'
+import { toast } from 'react-toastify'
 
 interface CartProduct {
     product: ProductInCart,
@@ -18,11 +19,36 @@ const CartProducts = ({ product, setcarrito }: CartProduct) => {
     const [verify, setverify] = useState(false)
 
 
-    const deleteProduct = (e: React.MouseEvent) => {
+    const openNotification = (e: React.MouseEvent) => {
         if (!('id' in e.currentTarget) || !e.currentTarget.id) return
-        if (!window.confirm('Do you want to delete this porduct?')) return
-        axios.delete(`${url}/api/carrito/${e.currentTarget.id}`, getConfig())
+        const id = +e.currentTarget.id
+        toast.info(() => (
+            <div>
+                <p className='text-white font-black text-center text-xl'>¿Quieres eliminar este producto?</p>
+                <div className='flex gap-5 mt-3 justify-center'>
+                    <button className='bg-blue-900 rounded-lg p-2 text-white font-bold' onClick={() => {
+                        deleteProduct(id)
+                        toast.dismiss();
+                    }}>Confirmar</button>
+                    <button className='bg-red-700 rounded-lg p-2 text-white font-bold' onClick={() => { toast.dismiss(); }}>Cancelar</button>
+                </div>
+            </div>
+        ), {
+            position: 'top-right',
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            closeButton: false,
+            theme:'dark'
+        });
+    }
+
+    const deleteProduct = (id:number) => {
+        axios.delete(`${url}/api/carrito/${id}`, getConfig())
             .then(res => {
+                toast.success("Producto eliminado correctamente")
                 setcarrito([res.data])
             }
             )
@@ -36,6 +62,7 @@ const CartProducts = ({ product, setcarrito }: CartProduct) => {
             "cantidad": cantidadActualizada
         }, getConfig())
             .then(res => {
+                toast.success("Producto actualizado correctamente")
                 setcantidad(cantidadActualizada)
                 setverify(false)
                 setcarrito([res.data])
@@ -49,7 +76,7 @@ const CartProducts = ({ product, setcarrito }: CartProduct) => {
         <div className='flex flex-col gap-3 border-b-2 border-dotted border-black'>
             <div className='flex justify-between text-xl'>
                 <div className='text-gray-400'>{product.categoria}</div>
-                <button id={product.id.toString()} onClick={deleteProduct}><BiTrash className='text-red-600 text-2xl' id={product.id.toString()} /></button>
+                <button id={product.id.toString()} onClick={openNotification}><BiTrash className='text-red-600 text-2xl' id={product.id.toString()} /></button>
             </div>
             <div className='text-2xl font-bold'>{product.nombre}</div>
             <form onSubmit={patchCantidad} id={product.id.toString()} className='flex w-1/4 md:w-1/6'>

@@ -3,31 +3,32 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import getConfig, { url } from '../Utils/getConfig'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { useRef } from 'react'
 import { Product } from '../Interfaces/Interfaces'
+import { toast } from 'react-toastify'
+import axiosInstance from '../Utils/AxiosConfig'
 
 interface CardProduct {
   product: Product,
-  carrito: any,
-  setcarrito: any
+  carrito?: any,
+  setcarrito?: any
 }
 
 const CardProduct = ({ product, carrito, setcarrito }: CardProduct) => {
 
-  // const Reference = useRef<HTMLElement | undefined>()
-  // useEffect(() => {
-  //   Reference.current.childNodes[0].childNodes[0].id = product.id
-  // }, [product])
 
   const putbyId = (e: React.MouseEvent): void => {
     if (!('id' in e.currentTarget) || !e.currentTarget.id) return
-  
-    axios.post(`${url}/api/carrito/${(e.currentTarget as HTMLButtonElement).id}`,
+    axiosInstance.post(`${url}/api/carrito/${(e.currentTarget as HTMLButtonElement).id}`,
       {
         "cantidad": 1
       }, getConfig())
-      .then(res => setcarrito([...carrito, res.data]))
-      .catch(err => window.alert('Already exists a similar product in your cart'))
+      .then(res => {
+        console.log('entra')
+        toast.success("Producto agregado correctamente")
+        setcarrito([...carrito, res.data])
+      })
+      .catch(() => { })
+    e.stopPropagation()
   }
   const navigate = useNavigate()
   const information = (e: React.MouseEvent): void => {
