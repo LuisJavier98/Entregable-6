@@ -18,8 +18,6 @@ const Purchases = lazy(() => import('./Pages/Purchases'))
 
 
 function App() {
-
-
   return (
     <CreateContext>
       <Suspense fallback={<div className="flex justify-center items-center h-screen bg-white">

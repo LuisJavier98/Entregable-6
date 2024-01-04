@@ -23,7 +23,6 @@ const CardProduct = ({ product, carrito, setcarrito }: CardProduct) => {
         "cantidad": 1
       }, getConfig())
       .then(res => {
-        console.log('entra')
         toast.success("Producto agregado correctamente")
         setcarrito([...carrito, res.data])
       })
@@ -50,6 +49,7 @@ const CardProduct = ({ product, carrito, setcarrito }: CardProduct) => {
       </header>
       <div className='product_caracteristics'>
         <h4 className='font-black text-xl text-center my-5 truncate'>{product.nombre}</h4>
+        <h5 className='text-center font-bold text-lg'>Cantidad: {product.unidades} unidades</h5>
       </div>
       <div className='flex justify-between '>
         <p className='font-bold text-lg text-gray-700'>Price

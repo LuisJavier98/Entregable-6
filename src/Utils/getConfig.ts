@@ -7,7 +7,7 @@ const getConfig = () => (
 )
 
 export function fecha(fecha: Date): String {
-    const datos: String = new Date(fecha).toDateString()
+    const datos: String = new Date(fecha).toString()
     return datos
 }
 
