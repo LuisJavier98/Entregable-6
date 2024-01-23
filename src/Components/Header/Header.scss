@@ -1,0 +1,169 @@
+:root {
+  --globalImagesSize: 50px;
+  --creatineImageSize: 72px;
+  --packImageSize: 67px
+}
+
+p {
+  margin-bottom: unset !important;
+}
+
+.displayMenu {
+  transition: all 0.5s linear;
+  top: 100px !important;
+  position: fixed !important;
+}
+
+
+@media (width<=1024px) {
+  .displayNav {
+    box-sizing: border-box;
+    transition: all 0.5s linear;
+    left: 0px !important;
+    top: 0px !important;
+    flex-direction: column;
+    z-index: 30;
+    position: fixed;
+    height: 100vh;
+    width: 50vw;
+    padding: 40px 0px;
+    justify-content: start !important;
+    font-size: 30px;
+    gap: 20px;
+  }
+
+  #form {
+    position: absolute;
+    transition: all 0.5s linear;
+    height: 150px;
+  }
+}
+
+
+.card_product:not(:hover) .card_product_options {
+  opacity: 0 !important;
+  transition: all .3s ease-out;
+  visibility: hidden;
+  height: 0px;
+  padding: 0px;
+
+}
+
+.card_product:hover .card_product_options {
+  opacity: 1 !important;
+  transition: all .3s ease-out;
+  background-color: rgba(233, 226, 216);
+  visibility: visible;
+  height: auto;
+}
+
+.MuiSelect-icon {
+  fill: white !important
+}
+
+.navBar>p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+.option {
+  @apply flex-1 justify-start lg:whitespace-nowrap my-3 text-3xl;
+
+  &:hover {
+    @apply text-navBar cursor-pointer;
+  }
+}
+
+.optionNav {
+  @apply pl-14 py-3 text-center lg:pl-0 text-4xl lg:text-xl xl:text-3xl;
+
+  &:hover {
+    @apply text-header cursor-pointer;
+  }
+}
+
+.cardEffect {
+  @apply opacity-0 absolute shadow-2xl transition-all card_product_options z-10 p-12 left-full lg:top-full lg:left-0 top-0;
+}
+
+
+
+.protein,
+.mass,
+.creatine,
+.pack {
+  display: flex;
+  align-items: center;
+}
+
+.protein,
+.mass {
+  gap: 40px;
+}
+
+.creatine {
+  gap: calc(40px + var(--globalImagesSize) - var(--creatineImageSize));
+}
+
+.pack {
+  gap: calc(40px + var(--globalImagesSize) - var(--packImageSize));
+
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+  li>p {
+    cursor: pointer;
+  }
+}
+
+
+@mixin optionsBefore($name, $widthImages) {
+  .#{$name}::before {
+    content: "";
+    background-image: url("/#{$name}.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    width: var($widthImages);
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@include optionsBefore("protein", --globalImagesSize);
+@include optionsBefore("mass", --globalImagesSize);
+@include optionsBefore("creatine", --creatineImageSize);
+@include optionsBefore("pack", --packImageSize);
+
+.line-horizontal::before {
+  content: "";
+  width: 0%;
+  height: 1px;
+  position: absolute;
+  bottom: -0.5px;
+  border-bottom: 1px solid black;
+  transition: all 0.3s linear;
+}
+
+
+.line-horizontal:hover::before {
+  width: 100%;
+  transition: all 0.3s linear;
+}
+
+$clamp: 32%;
+
+.basis {
+  flex-basis: clamp(300px, $clamp, 800px);
+}
+
+@media (width<=1386px) {
+  $clamp: 45%;
+}
