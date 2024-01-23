@@ -6,11 +6,11 @@ const getConfig = () => (
     }
 )
 
-export function fecha(fecha: Date): String {
-    const datos: String = new Date(fecha).toString()
+export function fecha(fecha) {
+    const datos = new Date(fecha).toString()
     return datos
 }
 
-export const url = 'http://localhost:8000'
+export const url = import.meta.env.VITE_URL
 
 export default getConfig 

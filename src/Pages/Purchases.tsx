@@ -4,7 +4,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import getConfig, { fecha, url } from '../Utils/getConfig'
+import getConfig, { fecha, url } from '../Utils/getConfig.Js'
 import { Compras } from '../Interfaces/Interfaces'
 
 

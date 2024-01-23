@@ -1,7 +1,7 @@
 import { BiTrash } from 'react-icons/bi'
 import { Dispatch } from 'react'
 import axios from 'axios'
-import getConfig, { url } from '../Utils/getConfig'
+import getConfig, { url } from '../Utils/getConfig.Js'
 import { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { Product, ProductInCart } from '../Interfaces/Interfaces'

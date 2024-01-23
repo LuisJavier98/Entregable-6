@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import getConfig, { url } from '../Utils/getConfig'
+import getConfig, { url } from '../Utils/getConfig.Js'
 import CartProducts from '../Components/CartProducts'
 import { useContext } from 'react'
 import { DataContext, DataContextProps } from '../context/CreateContext'

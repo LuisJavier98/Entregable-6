@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import getConfig, { url } from '../Utils/getConfig'
+import getConfig, { url } from '../Utils/getConfig.Js'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Product } from '../Interfaces/Interfaces'
 import { toast } from 'react-toastify'

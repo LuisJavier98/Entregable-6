@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
-import { url } from "../../Utils/getConfig";
+import { url } from "../../Utils/getConfig.Js";
 import { InitialState, Product } from "../../Interfaces/Interfaces";
 import { AppDispatch } from "..";
 

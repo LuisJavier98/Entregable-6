@@ -4,10 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { getAllProducts } from '../store/slices/products.slice'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import getConfig from '../Utils/getConfig'
+import getConfig from '../Utils/getConfig.Js'
 import { RootState } from '../store/index';
 import { Product } from '../Interfaces/Interfaces'
-import { url } from '../Utils/getConfig';
+import { url } from '../Utils/getConfig.Js';
 import axiosInstance from '../Utils/AxiosConfig'
 import { ToastContainer, toast } from 'react-toastify'
 

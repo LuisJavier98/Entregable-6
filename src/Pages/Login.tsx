@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { url } from '../Utils/getConfig'
+import { url } from '../Utils/getConfig.Js'
 import { toast } from 'react-toastify'
 
 interface FormData {
