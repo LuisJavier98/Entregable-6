@@ -1,21 +1,56 @@
 import { Card } from '@mui/material'
 import { IoClose } from "react-icons/io5";
+import { FaArrowUp } from "react-icons/fa";
+import { useLayoutEffect, useState, useSyncExternalStore } from 'react';
+import { width } from '@mui/system';
+import './NavBar.scss'
+
+
+
 
 const NavBar = () => {
+
+  const [showIcon, setshowIcon] = useState<boolean>(window.innerWidth < 1024 ? true : false)
+  const [isProductOpen, setisProductOpen] = useState<boolean>(false)
+  const [isObjectiveOpen, setisObjectiveOpen] = useState<boolean>(false)
+
+
+  useLayoutEffect(() => {
+    const callback = (e: Event) => {
+      if (!e.target) return
+      if (!('innerWidth' in e.target)) return
+      if (e.target.innerWidth as number < 1024) {
+        setshowIcon(true)
+      } else {
+        setshowIcon(false)
+        setisObjectiveOpen(false)
+        setisProductOpen(false)
+      }
+    }
+    window.addEventListener("resize", callback)
+    return () => window.removeEventListener("resize", callback)
+  }, [])
+
+
   return (
     <nav
       id='navigate'
-      className=' absolute -left-full lg:relative lg:left-auto flex justify-between px-12 text-white font-bold text-xl bg-navBar navBar'>
+      className='absolute w-0 lg:w-auto -left-full lg:relative lg:left-auto flex justify-between px-12 text-white font-bold text-xl bg-navBar navBar'>
       <button className='lg:hidden border-b-2 border-header w-full ' onClick={() => {
         document.querySelector("#navigate")?.classList.remove("displayNav")
         document.querySelector("body")?.classList.remove("before")
       }} >
-        <p className='py-3 px-5 w-full text-end flex justify-end'><IoClose />Close</p>
+        <p className='py-3 px-5 w-full text-end flex justify-end'><IoClose />Ocultar</p>
       </button>
       <p className='relative card_product'>
-        <p className='flex items-center optionNav'>Productos</p>
-        <Card className='cardEffect'>
-          <h2 className='mb-4'>Productos</h2>
+        <p className='optionNav flex justify-between w-full' id='proteinas' onClick={() => setisProductOpen(!isProductOpen)}>
+          <p>
+            Productos
+          </p>
+          <FaArrowUp className={`scale-50 transition-all ${isProductOpen ? 'rotate-180' : 'rotate-0'} ${showIcon ? 'block' : 'hidden'}`} />
+        </p>
+        <Card className={`cardEffect ${isProductOpen ? 'h-auto' : showIcon ? 'h-0 p-0' : ''}`}>
+          <h2 className='mb-4 hidden lg:block underline decoration-1'>Productos</h2>
           <ul>
             <p className='option protein'>
               Proteinas
@@ -33,9 +68,14 @@ const NavBar = () => {
         </Card>
       </p>
       <p className='cursor-pointer relative card_product'>
-        <p className='flex items-center optionNav'>Mis Objetivos</p>
-        <Card className='cardEffect'>
-          <h2>Mis Objetivos</h2>
+        <p className='optionNav flex justify-between w-full' onClick={() => setisObjectiveOpen(!isObjectiveOpen)}>
+          <p>
+            Mis Objetivos
+          </p>
+          <FaArrowUp className={`scale-50 transition-all ${isObjectiveOpen ? 'rotate-180' : 'rotate-0'} ${showIcon ? 'block' : 'hidden'}`} />
+        </p>
+        <Card className={`cardEffect ${isObjectiveOpen ? 'h-auto' : showIcon ? 'h-0 p-0' : ''}`}>
+          <h2 className='hidden lg:block underline decoration-1'>Mis Objetivos</h2>
           <ul className='transition-all'>
             <li className='option '>Construir musculo</li>
             <li className='option'>Perder peso y tonificar</li>

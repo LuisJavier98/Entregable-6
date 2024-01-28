@@ -31,7 +31,7 @@ function App() {
   return (
     <CreateContext>
       <Suspense fallback={<div className="flex justify-center items-center h-screen bg-white">
-        <div className="loader border-t-4 border-white border-t-red-500 rounded-full w-16 h-16 animate-spin"></div>
+        <div className="loader border-t-4 border-white border-t-navBar rounded-full w-16 h-16 animate-spin"></div>
       </div>} >
         <ToastContainer autoClose={500} />
         <div className="app">
