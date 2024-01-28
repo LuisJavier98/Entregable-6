@@ -1,16 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
 module.exports = {
-  content: ['./index.html', "./src/**/*.tsx","./src/**/*.jsx"],
+  content: ['./index.html', "./src/**/*.tsx", "./src/**/*.jsx"],
   theme: {
     extend: {
       colors: {
-        transparent: 'transparent',
-        current: 'currentColor',
-        gray: colors.neutral,
-        red: colors.red,
-        blue: colors.sky,
-        yellow: colors.amber,
+        navBar: '#012B83',
+        header: '#e9e2d8'
+      },
+      flex: {
+        '2': '2 2 0%'
       },
       transitionProperty: {
         'height': 'height',
@@ -18,8 +16,13 @@ module.exports = {
       },
       inset: {
         '16': '400rem'
-      }
-    }
+      },
+      scale: {
+        '175': '1.75',
+        '200': '2'
+      },
+    },
   },
   plugins: [],
+  important: false,
 }

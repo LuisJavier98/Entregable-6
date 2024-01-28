@@ -1,0 +1,156 @@
+:root {
+  --globalImagesSize: 50px;
+  --creatineImageSize: 72px;
+  --packImageSize: 67px
+}
+
+p {
+  margin-bottom: unset !important;
+}
+
+.displayMenu {
+  transition: all 0.5s linear;
+  top: 100px !important;
+  position: fixed !important;
+}
+
+ul {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+
+@media (width<=1024px) {
+  .displayNav {
+    box-sizing: border-box;
+    transition: all 0.5s linear;
+    left: 0px !important;
+    top: 0px !important;
+    flex-direction: column;
+    z-index: 30;
+    position: fixed;
+    height: 100vh;
+    width: 50vw;
+    padding: 40px 0px;
+    justify-content: start !important;
+    font-size: 30px;
+    gap: 20px;
+  }
+
+  #form {
+    position: absolute;
+    transition: all 0.5s linear;
+    height: 150px;
+  }
+}
+
+
+@media (width<=700px) {
+  .displayNav {
+    width: 80vw;
+  }
+}
+
+
+
+.MuiSelect-icon {
+  fill: white !important
+}
+
+.navBar>p {
+  @apply flex-col flex lg:flex-row justify-start items-center mb-0;
+}
+
+.card_product:not(:hover) .card_product_options {
+  @apply lg:opacity-0 transition-all bg-header lg:invisible lg:h-0 lg:p-0 w-full
+}
+
+.card_product:hover .card_product_options {
+  @apply lg:opacity-100 transition-all bg-header lg:visible lg:h-auto lg:w-auto w-full
+}
+
+
+.option {
+  @apply flex-1 justify-start lg:whitespace-nowrap my-3 text-3xl;
+
+  &:hover {
+    @apply text-navBar cursor-pointer;
+  }
+}
+
+.optionNav {
+  @apply pl-8 py-3 pr-8 lg:pr-0 self-start text-center lg:pl-0 text-4xl lg:text-xl xl:text-3xl;
+
+  &:hover {
+    @apply text-header cursor-pointer;
+  }
+}
+
+.cardEffect {
+  @apply lg:opacity-0 lg:absolute lg:shadow-2xl transition-all card_product_options z-10 p-12 left-full lg:top-full lg:left-0 top-0;
+}
+
+
+.protein,
+.mass,
+.creatine,
+.pack {
+  display: flex;
+  align-items: center;
+}
+
+.protein,
+.mass {
+  gap: 40px;
+}
+
+.creatine {
+  gap: calc(40px + var(--globalImagesSize) - var(--creatineImageSize));
+}
+
+.pack {
+  gap: calc(40px + var(--globalImagesSize) - var(--packImageSize));
+
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+  li>p {
+    cursor: pointer;
+  }
+}
+
+
+@mixin optionsBefore($name, $widthImages) {
+  .#{$name}::before {
+    content: "";
+    background-image: url("/#{$name}.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    width: var($widthImages);
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@include optionsBefore("protein", --globalImagesSize);
+@include optionsBefore("mass", --globalImagesSize);
+@include optionsBefore("creatine", --creatineImageSize);
+@include optionsBefore("pack", --packImageSize);
+
+
+
+$clamp: 32%;
+
+.basis {
+  flex-basis: clamp(300px, $clamp, 800px);
+}
+
+@media (width<=1386px) {
+  $clamp: 45%;
+}
