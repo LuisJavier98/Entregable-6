@@ -35,7 +35,7 @@ const NavBar = () => {
   return (
     <nav
       id='navigate'
-      className='absolute w-0 lg:w-auto -left-full lg:relative lg:left-auto flex justify-between px-12 text-white font-bold text-xl bg-navBar navBar'>
+      className='absolute !overflow-auto lg:!overflow-visible w-0 lg:w-auto -left-[400%] lg:relative lg:left-auto flex justify-between px-12 text-white font-bold text-xl bg-navBar navBar'>
       <button className='lg:hidden border-b-2 border-header w-full ' onClick={() => {
         document.querySelector("#navigate")?.classList.remove("displayNav")
         document.querySelector("body")?.classList.remove("before")
