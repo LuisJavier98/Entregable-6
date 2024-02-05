@@ -11,6 +11,7 @@ import { Fab } from '@mui/material'
 import { ImWhatsapp } from "react-icons/im";
 import ForYouSection from '../Components/ForYouSection/ForYouSection'
 import Categories from '../Components/Categories/Categories'
+import DiscoverMore from '../Components/DiscoverMore/DiscoverMore'
 
 
 
@@ -36,6 +37,7 @@ export default function Home(): ReactElement {
   }, [])
 
   useEffect(() => {
+    
     setproductName(watch('product')?.trim()?.toLowerCase())
   }, [watch('product')])
 
@@ -45,6 +47,7 @@ export default function Home(): ReactElement {
       <Carousel />
       <Categories />
       <ForYouSection />
+      <DiscoverMore></DiscoverMore>
       <Fab color="primary" aria-label="add" className='buttonWhatsApp scale-150 '>
         <ImWhatsapp className='scale-200' />
       </Fab>

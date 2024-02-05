@@ -1,0 +1,20 @@
+.picture-style picture>img {
+  padding: 8px;
+  border-radius: 70px 0px 70px 0px ;
+}
+
+picture>img {}
+
+.picture-style picture:hover {
+  transition: all .3s ease-in-out;
+  box-shadow: 1px 1px 4px 1px #012B83;
+}
+
+.picture-style picture>div {
+  opacity: 0;
+}
+
+.picture-style picture:hover>div {
+  transition: all .3s ease-in-out;
+  opacity: 100;
+}

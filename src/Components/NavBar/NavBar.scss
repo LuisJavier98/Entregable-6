@@ -18,3 +18,20 @@
     transform: scale(100%);
   }
 }
+
+
+.option {
+  @apply flex-1 justify-start lg:whitespace-nowrap my-3 text-xl;
+
+  &:hover {
+    @apply text-navBar cursor-pointer;
+  }
+}
+
+.optionNav {
+  @apply pl-8 py-3 pr-8 lg:pr-0 self-start text-center text-2xl lg:text-xl underline-offset-4 hover:underline transition-all;
+
+  &:hover {
+    @apply text-header cursor-pointer;
+  }
+}

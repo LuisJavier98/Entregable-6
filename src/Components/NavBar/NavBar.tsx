@@ -40,7 +40,10 @@ const NavBar = () => {
         document.querySelector("#navigate")?.classList.remove("displayNav")
         document.querySelector("body")?.classList.remove("before")
       }} >
-        <p className='py-3 px-5 w-full text-end flex justify-end'><IoClose />Ocultar</p>
+        <p className='py-3 px-5 w-full text-2xl text-end flex justify-end'>
+          <p className='flex items-center justify-center'><IoClose /></p>
+          <p>Ocultar</p>
+        </p>
       </button>
       <p className='relative card_product'>
         <p className='optionNav flex justify-between w-full' id='proteinas' onClick={() => setisProductOpen(!isProductOpen)}>
