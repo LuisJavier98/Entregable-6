@@ -1,20 +1,21 @@
 .container-discover {
   display: grid;
+  max-width: 1300px;
+  margin: auto;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   justify-content: center;
   padding: 1rem;
 }
 
-.container-discover picture {
-  margin:auto;
-  max-width: 800px;
+.container-discover>div {
+  margin: auto;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: .5px .5px 5px .5px;
-  transition: all 0.3s linear;
+  transition: all 0.2s ease;
 }
 
-.container-discover picture:hover {
-  box-shadow: 1px 1px 5px .5px #012B83;
+.container-discover>div:hover {
+  box-shadow: .5px .5px 5px .5px;
+  transition: all 0.2s ease;
 }

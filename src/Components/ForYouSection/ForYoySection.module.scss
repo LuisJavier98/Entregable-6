@@ -1,20 +1,31 @@
-.picture-style picture>img {
-  padding: 8px;
-  border-radius: 70px 0px 70px 0px ;
+.container {
+  width: 150%;
+  display: flex;
+  height: 100%;
+  padding-inline: 10px;
+  padding-block: 1rem;
+  gap: 3rem, ;
+  // max-width: 1300px;
+  margin: auto;
+  transition: all .5s ease;
 }
 
-picture>img {}
 
-.picture-style picture:hover {
-  transition: all .3s ease-in-out;
-  box-shadow: 1px 1px 4px 1px #012B83;
+.container>div {
+  box-shadow: .5px .5px 5px .5px;
+  flex: 1;
+  overflow: hidden;
+  // margin-inline: 20px;
 }
 
-.picture-style picture>div {
-  opacity: 0;
+@media (width<1024px) {
+  .container {
+    width: 300%;
+  }
 }
 
-.picture-style picture:hover>div {
-  transition: all .3s ease-in-out;
-  opacity: 100;
+@media (width<640px) {
+  .container {
+    width: 600%;
+  }
 }
