@@ -13,8 +13,9 @@
 
 .container>picture {
   box-shadow: .5px .5px 5px .5px;
-  border-radius: 20px 0px 20px 0px;
+  border-radius: 20px 20px 0px 0px;
   flex: 1;
+  height: 35vh;
   overflow: hidden;
   // margin-inline: 20px;
 }

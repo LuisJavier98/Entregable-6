@@ -20,7 +20,7 @@ const Carrousel = ({ style, params, sectionTitle, format = 'standart' }: { style
 
   const [clicked, setClicked] = useState(0)
 
-  const category = useRef<HTMLDivElement>()
+  const category = useRef<HTMLDivElement | null>(null)
   const scrollTo = useCallback(
     (id: number, click: number) => {
       setClicked(click)
@@ -77,7 +77,7 @@ const Carrousel = ({ style, params, sectionTitle, format = 'standart' }: { style
   return (
     <>
       <h2 className='font-bold text-navBar text-center' >{sectionTitle}</h2>
-      <div className='w-auto overflow-hidden mx-10 h-1/2' >
+      <div className='w-11/12 overflow-hidden mx-auto h-1/2' >
         <div className={style.container} ref={category} style={{ marginLeft: '0px' }}>
           {params.map(param => (
             render(param)

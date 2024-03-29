@@ -14,7 +14,7 @@ const Categories = () => {
   ]
 
   return (
-    <section className=' h-screen pt-20'>
+    <section className='min-h-screen flex items-center justify-center flex-col'>
       <Carrousel params={params} sectionTitle='Compras por categoria' style={style} />
     </section>
   )
